@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1lLDAz04HavoFxfBu6wv+wqXbuSRq6MXt9SIJSdS1hcPAZyIGFePk7zcRQ+A0A/Nwgu7yNvAs1FTmC7UJKNmNw==",
+  "dgSpecHash": "cI4+Ey0cHESK8IEPfqLFgAaAAELMAHXBkgUkcRrqqGIVXLRWhxWmp6Yg2AJ0nWVMe16epR3kO1gxf4XV9v0rmQ==",
   "success": true,
-  "projectFilePath": "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\WatchStore.csproj",
+  "projectFilePath": "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\WatchStore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hpc\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\hpc\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",

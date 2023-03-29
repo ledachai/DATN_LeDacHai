@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\WatchStore.csproj": {}
+    "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\WatchStore.csproj": {}
   },
   "projects": {
-    "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\WatchStore.csproj": {
+    "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\WatchStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\WatchStore.csproj",
+        "projectUniqueName": "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\WatchStore.csproj",
         "projectName": "WatchStore",
-        "projectPath": "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\WatchStore.csproj",
+        "projectPath": "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\WatchStore.csproj",
         "packagesPath": "C:\\Users\\hpc\\.nuget\\packages\\",
-        "outputPath": "H:\\MonHoc\\DATN\\BackEnd\\V4\\WatchStore\\WatchStore\\obj\\",
+        "outputPath": "H:\\MonHoc\\DATN\\DATN_LeDacHai\\WatchStore\\WatchStore\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hpc\\AppData\\Roaming\\NuGet\\NuGet.Config",

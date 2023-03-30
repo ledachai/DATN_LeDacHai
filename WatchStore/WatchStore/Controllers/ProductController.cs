@@ -9,7 +9,7 @@ using WatchStore.Interface;
 
 namespace WatchStore.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/V1/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -29,6 +29,28 @@ namespace WatchStore.Controllers
             try
             {
                 var result = _productService.GetProducts(PageIndex, RowPerPage, Search);   
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+        }
+        [HttpGet]
+        [Route("GetProductByID")]
+        //[Authorize]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Product>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetProductByID([FromQuery] Guid? Pro_ID)
+        {
+            try
+            {
+                var result = _productService.GetProductById(Pro_ID);
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);

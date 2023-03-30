@@ -60,6 +60,26 @@ namespace WatchStore.Repositories
                 return null;
             }
         }
+
+        public IEnumerable<Product> GetProductById(Guid? Pro_ID)
+        {
+            using (SqlServerConnection = new SqlConnection(configuration.GetConnectionString("DB")))
+            {
+                //chuẩn bị proc
+                var getProductByID = "sp_Product_Detail";
+                //chuẩn bị param
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Pro_ID", Pro_ID);
+                //thực thi proc
+                var result = SqlServerConnection.QueryMultiple(getProductByID, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                if (result != null)
+                {
+                    return result.Read<Product>();
+                }
+                return null;
+            }
+        }
+
         public IEnumerable<Product> GetProducts(int? PageIndex, int? RowPerPage, string? Search)
         {
             using (SqlServerConnection = new SqlConnection(configuration.GetConnectionString("DB")))

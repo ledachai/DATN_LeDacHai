@@ -22,6 +22,11 @@ namespace WatchStore.Services
             return _repository.DeleteProducts(Pro_ID);
         }
 
+        public IEnumerable<Product> GetProductById(Guid? Pro_ID)
+        {
+            return _repository.GetProductById(Pro_ID);
+        }
+
         public IEnumerable<Product> GetProducts(int? PageIndex, int? RowPerPage, string? Search)
         {
             return _repository.GetProducts(PageIndex, RowPerPage, Search);

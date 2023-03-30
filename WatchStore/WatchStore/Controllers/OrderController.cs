@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System;
 using System.Collections.Generic;
+using System;
 using WatchStore.Entities;
 using WatchStore.Interface;
 using WatchStore.Services;
@@ -11,25 +10,45 @@ using WatchStore.Services;
 namespace WatchStore.Controllers
 {
     //[Authorize]
-    [Route("api/V1/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class CartController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        ICartService _cartService;
-        public CartController(ICartService cartService)
+        IOrderService _orderService;
+        public OrderController(IOrderService orderService)
         {
-            _cartService = cartService;
+            _orderService = orderService;
         }
         [HttpGet]
-        //[Authorize]
-        [SwaggerResponse(StatusCodes.Status200OK, type:typeof(List<Cart>))]
+        [Route("GetAllOrder")]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Order>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetCart([FromQuery] Guid? Peo_ID)
+        public IActionResult GetAllOrders()
         {
             try
             {
-                var result = _cartService.GetCarts(Peo_ID);
+                var result = _orderService.GetAllOrders();
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+            catch (System.Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+        }
+        [HttpGet]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Order>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetOrder([FromQuery] Guid? Peo_ID)
+        {
+            try
+            {
+                var result = _orderService.GetOrderByPeople(Peo_ID);
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);
@@ -42,15 +61,14 @@ namespace WatchStore.Controllers
             }
         }
         [HttpPost]
-        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult InsertCart([FromBody] Cart cart)
+        public IActionResult InsertOrder([FromBody] Order order)
         {
             try
             {
-                var result = _cartService.CreateCart(cart);
+                var result = _orderService.CreateOrder(order);
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);
@@ -63,15 +81,14 @@ namespace WatchStore.Controllers
             }
         }
         [HttpPut]
-        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdateCart([FromBody] Cart cart)
+        public IActionResult UpdateOrder([FromQuery] Guid? Order_ID)
         {
             try
             {
-                var result = _cartService.UpdateCart(cart);
+                var result = _orderService.UpdateOrder(Order_ID);
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);
@@ -83,25 +100,23 @@ namespace WatchStore.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }
         }
-        [HttpDelete("{Cart_ID}")]
-        //[Authorize]
+        [HttpPut]
+        [Route("UpdateStatus")]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteCart([FromRoute] string? Cart_ID)
+        public IActionResult UpdateStatus([FromQuery] Guid? Order_ID)
         {
             try
             {
-                var result = _cartService.DeleteCart(Cart_ID);
-
-                // Xử lý giá trị trả về từ db
+                var result = _orderService.UpdateStatus(Order_ID);
                 if (result != null)
                 {
-                    return StatusCode(StatusCodes.Status200OK, Cart_ID);
+                    return StatusCode(StatusCodes.Status200OK, result);
                 }
                 return StatusCode(StatusCodes.Status400BadRequest, "e001");
             }
-            catch (Exception ex)
+            catch (System.Exception)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }

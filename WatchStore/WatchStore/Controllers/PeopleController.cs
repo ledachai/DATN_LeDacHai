@@ -39,7 +39,7 @@ namespace WatchStore.Controllers
                 return Ok(authResult);
         }
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<People>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -62,7 +62,7 @@ namespace WatchStore.Controllers
 
         [HttpGet]
         [Route("GetPeopleByRole")]
-        [Authorize]
+        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<People>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -83,7 +83,7 @@ namespace WatchStore.Controllers
             }
         }
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -104,7 +104,7 @@ namespace WatchStore.Controllers
             }
         }
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -126,7 +126,7 @@ namespace WatchStore.Controllers
             }
         }
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         [Route("UpdateRole")]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
@@ -149,7 +149,7 @@ namespace WatchStore.Controllers
             }
         }
         [HttpDelete("{Peo_ID}")]
-        [Authorize]
+        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]

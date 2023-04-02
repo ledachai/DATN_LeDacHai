@@ -10,5 +10,9 @@ namespace WatchStore.Entities
         public DateTime? Co_Date { get; set; }
         public Guid? Pro_ID { get; set; }
         public Guid? Peo_ID { get; set; }
+        public Comment()
+        {
+
+        }
     }
 }

@@ -13,6 +13,9 @@ namespace WatchStore.Entities
         /// Tên danh mục
         /// </summary>
         public string? Cate_Name { get; set; }
+        public string? Cate_Descibe { get; set; }
+        public int? Cate_Count { get; set; }
+
         public Category()
         {
 

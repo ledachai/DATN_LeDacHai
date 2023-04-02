@@ -16,5 +16,9 @@ namespace WatchStore.Entities
         public DateTime? Order_Date { get; set; }
         public string? Order_Status { get; set; }
         public string? Order_IsDelete { get; set; }
+        public Order()
+        {
+
+        }
     }
 }

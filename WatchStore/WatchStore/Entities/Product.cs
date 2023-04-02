@@ -49,5 +49,9 @@ namespace WatchStore.Entities
         /// tên danh mục
         /// </summary>
         public string? Cate_Name { get; set; }
+        public Product()
+        {
+
+        }
     }
 }

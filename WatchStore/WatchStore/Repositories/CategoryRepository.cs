@@ -25,6 +25,7 @@ namespace WatchStore.Repositories
                 //chuẩn bị tham số
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Cate_Name", category.Cate_Name);
+                parameters.Add("@Cate_Descibe", category.Cate_Descibe);
                 //thực thi proc
                 var result = SqlServerConnection.Query(createCategoryProc, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 if (result != null)
@@ -81,6 +82,7 @@ namespace WatchStore.Repositories
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Cate_ID", category.Cate_ID);
                 parameters.Add("@Cate_Name", category.Cate_Name);
+                parameters.Add("@Cate_Descibe", category.Cate_Descibe);
                 //thực thi proc
                 var result = SqlServerConnection.Execute(updateCategoryProc, parameters, commandType: System.Data.CommandType.StoredProcedure);
                 if (result > 0)

@@ -43,5 +43,9 @@ namespace WatchStore.Entities
         /// Mã khách hàng
         /// </summary>
         public Guid? Peo_ID { get; set; }
+        public Cart()
+        {
+                
+        }
     }
 }

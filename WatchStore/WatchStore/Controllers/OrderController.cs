@@ -10,7 +10,7 @@ using WatchStore.Services;
 namespace WatchStore.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("api/V1/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {

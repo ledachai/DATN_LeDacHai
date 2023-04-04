@@ -8,6 +8,7 @@ namespace WatchStore.Entities
         public string? Order_Fullname { get; set; }
         public string? Order_Address { get; set; }
         public string? Pro_Name { get; set; }
+        public int? Pro_Number { get; set; }
         public double? Order_Phone { get; set; }
         public double? Cart_Pay { get; set; }
         public Guid? Pro_ID { get; set; }

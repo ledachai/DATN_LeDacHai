@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WatchStore.Entities;
 
 namespace WatchStore.Interface
@@ -6,6 +7,7 @@ namespace WatchStore.Interface
     public interface IOrderDetailRepository
     {
         IEnumerable<OrderDetail> GetAllOrders();
-        string? InsertOrderDetail(OrderDetail orderDetail);
+        string? InsertOrderDetail(Guid? Order_ID);
+        IEnumerable<ThongKe> GetThongKes(int? year);
     }
 }

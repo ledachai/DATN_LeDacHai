@@ -46,66 +46,6 @@ class Order extends Component {
               })
           });
   }
-  // FOR PUT
-  // openEditFormCategory = (data) => {
-  //     this.setState({
-  //         showListCategory: !this.state.showListCategory,
-  //         showEditFormCategory: !this.state.showEditFormCategory,
-  //         cate_ID: data.cate_ID,
-  //         cate_Name: data.cate_Name,
-  //         cate_Descibe: data.cate_Descibe
-  //     })
-  // }
-
-  // closeEditFormCategory = () => {
-  //     this.setState({
-  //         showListCategory: !this.state.showListCategory,
-  //         showEditFormCategory: !this.state.showEditFormCategory,
-  //     })
-  //     this.clearInsertText();
-  // }
-
-  // putData = () => {
-  //     var url = this.state.defaultUrl;
-  //     //let config = this.getConfigToken();
-  //     //console.log("haha")
-  //     //let isEditSuccess;
-  //     axios
-  //         .put(url, {
-  //             cate_ID: this.state.cate_ID,
-  //             cate_Name: this.state.cate_Name,
-  //             cate_Descibe: this.state.cate_Descibe
-  //         })
-  //         .then(response => {
-  //             if (response.data) {
-  //                 Swal.fire(
-  //                     'Sửa tài khoản thành công!',
-  //                     'Thay đổi đã xảy ra',
-  //                     'success'
-  //                 )
-  //                 this.componentDidMount();
-  //             }
-  //             else {
-  //                 Swal.fire(
-  //                     'Không thể thực hiện sửa!',
-  //                     'Đã xảy ra một vấn đề nào đó',
-  //                     'warning'
-  //                 )
-  //             }
-  //         })
-  //         .catch(error => {
-  //             Swal.fire(
-  //                 'Không thể thực hiện sửa!!',
-  //                 'Đã xảy ra một vấn đề nào đó',
-  //                 'warning'
-  //             )
-  //             console.log(error)
-  //         });
-  //     //this.showUpdateResultAlert();
-  //     this.clearInsertText();
-  //     this.closeEditFormCategory();
-  // };
-
     // FOR POST
 
     postData = (order_ID) => {
@@ -133,8 +73,8 @@ class Order extends Component {
             })
             .catch(error => {
                 Swal.fire(
-                    'Không thể thực hiện thêm!',
-                    'Đã xảy ra một vấn đề nào đó',
+                    'Lỗi giao hàng',
+                    'Đơn hàng đã được giao hoặc đã hủy!',
                     'warning'
                 )
             });
@@ -173,6 +113,29 @@ class Order extends Component {
           });
   };
 
+  showInsertConfirmAlert = (data) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+    swalWithBootstrapButtons.fire({
+        title: 'Giao hàng?',
+        text: "Thao tác này có thể không hoàn tác được!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Giao!',
+        cancelButtonText: 'Hủy!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            this.postData(data.order_ID);
+            // end comfirmed
+        } 
+    })
+}
 
   showUpdateConfirmAlert = (data) => {
       const swalWithBootstrapButtons = Swal.mixin({
@@ -235,7 +198,7 @@ class Order extends Component {
                       <td class="actions">
                           <div className="flex_center">
                               <button type="button" class="btn btn-outline-success btn-sm" onClick={() => this.showUpdateConfirmAlert(data)}>Xác nhận</button>
-                              <button type="button" class="btn btn-outline-secondary btn-sm" onClick={() => this.postData(data)}>Giao hàng</button>
+                              <button type="button" class="btn btn-outline-secondary btn-sm" onClick={() => this.showInsertConfirmAlert(data)}>Giao hàng</button>
                           </div> 
                       </td>
                   </tr>
@@ -252,28 +215,6 @@ class Order extends Component {
                   showListOrder={this.state.showListOrder}
                   //renderFormCategory={this.renderFormCategory}
               />
-              {/* <FormCategory
-                  showFormCategory={this.state.showFormCategory}
-                  renderFormCategory={this.renderFormCategory}
-                  handleFormCateNameChange={this.handleFormCateNameChange}
-                  handleFormCateDescibeChange={this.handleFormCateDescibeChange}
-                  cate_Name={this.state.cate_Name}
-                  cate_Descibe={this.state.cate_Descibe}
-                  cate_Count={this.state.cate_Count}
-                  postData={this.postData}
-              />
-              <CategoryEditForm
-                  showEditFormCategory={this.state.showEditFormCategory}
-                  closeEditFormCategory={this.closeEditFormCategory}
-                  openEditFormCategory={this.openEditFormCategory}
-                  cate_ID={this.state.cate_ID}
-                  handleFormCateNameChange={this.handleFormCateNameChange}
-                  handleFormCateDescibeChange={this.handleFormCateDescibeChange}
-                  cate_Name={this.state.cate_Name}
-                  cate_Descibe={this.state.cate_Descibe}
-                  cate_Count={this.state.cate_Count}
-                  putData={this.putData}
-              /> */}
           </div>
       );
   }

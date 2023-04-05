@@ -247,7 +247,7 @@ class Index extends Component{
             </li>
             <li className="nav-item">
               <NavLink to="/Reports" className="nav-link collapsed">
-                <i className="bi bi-bar-chart" /><span>Thống kê báo cáo</span>
+                <i className="bi bi-bar-chart" /><span>Thống kê</span>
               </NavLink>
             </li>
           </ul>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WatchStore.Entities;
 using WatchStore.Interface;
 
@@ -16,9 +17,14 @@ namespace WatchStore.Services
             return _orderDetailRepository.GetAllOrders();
         }
 
-        public string InsertOrderDetail(OrderDetail orderDetail)
+        public IEnumerable<ThongKe> GetThongKes(int? year)
         {
-            return _orderDetailRepository.InsertOrderDetail(orderDetail);
+            return _orderDetailRepository.GetThongKes(year);
+        }
+
+        public string InsertOrderDetail(Guid? Order_ID)
+        {
+            return _orderDetailRepository.InsertOrderDetail(Order_ID);
         }
     }
 }

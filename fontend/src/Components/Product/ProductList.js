@@ -22,7 +22,7 @@ class ProductList extends Component{
             <div className="section2 flex_center" id="show_option">
                 <div className="show_options flex_center">
                 <div className="col-sm-10">
-                    <select style={{width: '145px'}} className="form-select" aria-label="Default select example" 
+                    <select style={{width: '110px'}} className="form-select" aria-label="Default select example" 
                     onChange={(e) => {this.props.handleSearch("&search=" + e.target.value)}}
                     >
                     <option value={""} selected>Tất cả</option>

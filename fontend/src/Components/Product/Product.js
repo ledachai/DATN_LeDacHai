@@ -81,8 +81,8 @@ class Product extends Component{
             pro_Name: data.pro_Name,
             pro_Price: data.pro_Price,
             pro_Image: data.pro_Image,
-            pro_Describe: data.pro_Describe,
-            pro_Number: data.pro_Number
+            pro_Number: data.pro_Number,
+            pro_Describe: data.pro_Describe
         })
     }
 
@@ -101,6 +101,7 @@ class Product extends Component{
         //let isEditSuccess;
         axios
             .put(url, {
+                pro_ID: this.state.pro_ID,
                 pro_Name: this.state.pro_Name,
                 pro_Price: this.state.pro_Price,
                 pro_Image: this.state.pro_Image,
@@ -276,10 +277,10 @@ class Product extends Component{
                     {/* <td>{item.pid}</td> */}
                     <td>{item.pro_Name}</td>
                     <td>{item.pro_Describe}</td>
-                    <td>{this.formatMoney(item.pro_Price)}</td>
+                    <td>{this.formatMoney(item.pro_Price)} đ</td>
                     <td>{item.pro_Number}</td>
                     {/* <td>{item.cate_Name}</td> */}
-                    <td>{<img style={{width: '40px', height: '40px'}} src="../img/card.jpg" alt="" />}</td>
+                    <td>{<img style={{width: '40px', height: '40px'}} src="../img/product-2.jpg" alt="" />}</td>
                     <td>
                         <div className="flex_center">
                             <div className="update" commandtype="update" onClick={() => this.openEditFormProduct(item)}>

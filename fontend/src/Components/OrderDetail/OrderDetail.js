@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import OrderDetailList from "./OrderDetailList";
+import ThongKeList from "./ThongKeList";
 
 class OrderDetail extends Component {
   constructor() {
@@ -9,22 +10,10 @@ class OrderDetail extends Component {
       this.state = {
           OrderDetail: [],
           showListOrderDetail: true,
-          //showFormCategory: false,
-          //showListCategory: true,
-          // for post
-          //cate_Name: '',
-          //cate_Descibe: '',
-
-          // for put
-          //showEditFormCategory: false,
+          showListThongKe: false,
+          ThongKe: [],
           order_ID: '',
-
-          // for delete
-          // TKIDToDelete: "",
-
           defaultUrl: "https://localhost:5001/api/V1/OrderDetail",
-        //   urlforput: "https://localhost:5001/api/V1/Order/UpdateStatus?Order_ID=",
-        //   urlforinsert: "https://localhost:5001/api/V1/OrderDetail/"
       }
   }
   // getConfigToken() {
@@ -36,8 +25,12 @@ class OrderDetail extends Component {
   //     };
   //     return config;
   // }
-
-  componentDidMount() {
+    ButtonThongKe = (year) => {
+        let url = "https://localhost:5001/api/V1/OrderDetail/" + year;
+        console.log(url)
+        this.getThongKe(url);
+    }
+    componentDidMount() {
       //let config = this.getConfigToken();
       axios.get(this.state.defaultUrl)
           .then((response) => {
@@ -45,160 +38,21 @@ class OrderDetail extends Component {
                   OrderDetail: response.data
               })
           });
+    }
+    getThongKe(url){
+        axios.get(url)
+            .then((response) =>{
+                this.setState({
+                    ThongKe: response.data
+                })
+            });
+    }
+  openListThongKe = () => {
+    this.setState({
+        showListOrderDetail: !this.state.showListOrderDetail,
+        showListThongKe: !this.state.showListThongKe
+    })
   }
-  // FOR PUT
-  // openEditFormCategory = (data) => {
-  //     this.setState({
-  //         showListCategory: !this.state.showListCategory,
-  //         showEditFormCategory: !this.state.showEditFormCategory,
-  //         cate_ID: data.cate_ID,
-  //         cate_Name: data.cate_Name,
-  //         cate_Descibe: data.cate_Descibe
-  //     })
-  // }
-
-  // closeEditFormCategory = () => {
-  //     this.setState({
-  //         showListCategory: !this.state.showListCategory,
-  //         showEditFormCategory: !this.state.showEditFormCategory,
-  //     })
-  //     this.clearInsertText();
-  // }
-
-  // putData = () => {
-  //     var url = this.state.defaultUrl;
-  //     //let config = this.getConfigToken();
-  //     //console.log("haha")
-  //     //let isEditSuccess;
-  //     axios
-  //         .put(url, {
-  //             cate_ID: this.state.cate_ID,
-  //             cate_Name: this.state.cate_Name,
-  //             cate_Descibe: this.state.cate_Descibe
-  //         })
-  //         .then(response => {
-  //             if (response.data) {
-  //                 Swal.fire(
-  //                     'Sửa tài khoản thành công!',
-  //                     'Thay đổi đã xảy ra',
-  //                     'success'
-  //                 )
-  //                 this.componentDidMount();
-  //             }
-  //             else {
-  //                 Swal.fire(
-  //                     'Không thể thực hiện sửa!',
-  //                     'Đã xảy ra một vấn đề nào đó',
-  //                     'warning'
-  //                 )
-  //             }
-  //         })
-  //         .catch(error => {
-  //             Swal.fire(
-  //                 'Không thể thực hiện sửa!!',
-  //                 'Đã xảy ra một vấn đề nào đó',
-  //                 'warning'
-  //             )
-  //             console.log(error)
-  //         });
-  //     //this.showUpdateResultAlert();
-  //     this.clearInsertText();
-  //     this.closeEditFormCategory();
-  // };
-
-    // FOR POST
-
-//     postData = (order_ID) => {
-//         //let config = this.getConfigToken();
-//         //let isInsertSuccess
-//         var url = this.state.urlforinsert + order_ID;
-//         axios
-//             .post(url)
-//             .then(response => {
-//                 if (response.data) {
-//                     Swal.fire(
-//                         'Giao hàng thành công!',
-//                         'Thay đổi đã xảy ra',
-//                         'success'
-//                     )
-//                     this.componentDidMount();
-//                 }
-//                 else {
-//                     Swal.fire(
-//                         'Có lỗi xảy ra!',
-//                         'Đã xảy ra một vấn đề nào đó',
-//                         'warning'
-//                     )
-//                 }
-//             })
-//             .catch(error => {
-//                 Swal.fire(
-//                     'Không thể thực hiện thêm!',
-//                     'Đã xảy ra một vấn đề nào đó',
-//                     'warning'
-//                 )
-//             });
-//     };
-
-
-//   //HTTP update status
-//   updateStatus = (order_ID) => {
-//       var url = this.state.urlforput + order_ID;
-//       //let config = this.getConfigToken();
-//       axios
-//           .put(url)
-//           .then(response => {
-//               if (response.data) {
-//                   Swal.fire(
-//                       'Xác nhận thành công!',
-//                       'Thay đổi đã xảy ra',
-//                       'success'
-//                     )
-//                     this.componentDidMount();
-//               }
-//               else {
-//                   Swal.fire(
-//                       'Có lỗi xảy ra!',
-//                       'Đã xảy ra một vấn đề nào đó',
-//                       'warning'
-//                     )
-//               }
-//           })
-//           .catch(error => {
-//               Swal.fire(
-//                   'Lỗi xác nhận!',
-//                   'Đơn hàng đang giao hoặc đã giao',
-//                   'warning'
-//               )
-//           });
-//   };
-
-
-//   showUpdateConfirmAlert = (data) => {
-//       const swalWithBootstrapButtons = Swal.mixin({
-//           customClass: {
-//               confirmButton: 'btn btn-success',
-//               cancelButton: 'btn btn-danger'
-//           },
-//           buttonsStyling: false
-//       })
-//       swalWithBootstrapButtons.fire({
-//           title: 'Xác nhận?',
-//           text: "Thao tác này có thể không hoàn tác được!",
-//           icon: 'warning',
-//           showCancelButton: true,
-//           confirmButtonText: 'Xác nhận!',
-//           cancelButtonText: 'Hủy!',
-//           reverseButtons: true
-//       }).then((result) => {
-//           if (result.isConfirmed) {
-//               this.updateStatus(data.order_ID);
-//               // end comfirmed
-//           } 
-//       })
-//   }
-
-
   // Hàm format số tiền
   formatMoney = moneyinput => {
     let money = Math.round(moneyinput);
@@ -228,55 +82,46 @@ class OrderDetail extends Component {
                       <td>{data.order_Address}</td>
                       <td>{data.order_Phone}</td>
                       <td>{data.pro_Name}</td>
-                      <td>{data.pro_Number}</td>
-                      <td>{this.formatMoney(data.cart_Pay)}</td>
+                      <td>{data.pro_Number} sản phẩm</td>
+                      <td>{this.formatMoney(data.cart_Pay)} đ</td>
                       <td>{this.formatDate(data.order_Date)}</td>
-                      {/* <td class="actions">
-                          <div className="flex_center">
-                              <div className="update" commandtype="update" onClick={() => this.showUpdateConfirmAlert(data)}>
-                                  <i class="fa-solid fa-pen-to-square"></i>
-                              </div>
-                              <div className="update" commandtype="update" onClick={() => this.postData(data)}>
-                                  <i class="fa-solid fa-pen-to-square"></i>
-                              </div>
-                          </div> 
-                      </td> */}
                   </tr>
               );
           // }
       }
       );
   }
+  //render thống kê chi tiết
+  renderThongKeList = () => {
+    return this.state.ThongKe.map((data, index) => {
+        // if(data.role !== "admin"){
+            return (
+                <tr>
+                    <td>Tháng {data.month}</td>
+                    <td>{data.count} sản phẩm</td>
+                    <td>{this.formatMoney(data.pay)} đ</td>
+                </tr>
+            );
+        // }
+    }
+    );
+}
   render() {
       return (
           <div className="container">
               <OrderDetailList
                   renderOrderDetail={this.renderOrderDetail}
                   showListOrderDetail={this.state.showListOrderDetail}
-                  //renderFormCategory={this.renderFormCategory}
+                  openListThongKe={this.openListThongKe}
               />
-              {/* <FormCategory
-                  showFormCategory={this.state.showFormCategory}
-                  renderFormCategory={this.renderFormCategory}
-                  handleFormCateNameChange={this.handleFormCateNameChange}
-                  handleFormCateDescibeChange={this.handleFormCateDescibeChange}
-                  cate_Name={this.state.cate_Name}
-                  cate_Descibe={this.state.cate_Descibe}
-                  cate_Count={this.state.cate_Count}
-                  postData={this.postData}
+              <ThongKeList
+                  renderThongKeList={this.renderThongKeList}
+                  showListThongKe={this.state.showListThongKe}
+                  openListThongKe={this.openListThongKe}
+                  handleButtonThongKe={this.handleButtonThongKe}
+                //   handleYearChange={this.handleYearChange}
+                  ButtonThongKe={this.ButtonThongKe}
               />
-              <CategoryEditForm
-                  showEditFormCategory={this.state.showEditFormCategory}
-                  closeEditFormCategory={this.closeEditFormCategory}
-                  openEditFormCategory={this.openEditFormCategory}
-                  cate_ID={this.state.cate_ID}
-                  handleFormCateNameChange={this.handleFormCateNameChange}
-                  handleFormCateDescibeChange={this.handleFormCateDescibeChange}
-                  cate_Name={this.state.cate_Name}
-                  cate_Descibe={this.state.cate_Descibe}
-                  cate_Count={this.state.cate_Count}
-                  putData={this.putData}
-              /> */}
           </div>
       );
   }

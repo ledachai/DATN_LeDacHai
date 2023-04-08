@@ -45,7 +45,7 @@ namespace WatchStore.Controllers
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<ThongKe>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetThongKes([FromQuery] int? year)
+        public IActionResult GetThongKes([FromRoute] int? year)
         {
             try
             {

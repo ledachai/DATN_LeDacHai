@@ -192,7 +192,7 @@ class Order extends Component {
                       <td>{data.order_Phone}</td>
                       <td>{data.pro_Name}</td>
                       <td>{data.pro_Number}</td>
-                      <td>{this.formatMoney(data.cart_Pay)}</td>
+                      <td>{this.formatMoney(data.cart_Pay)} đ</td>
                       <td>{this.formatDate(data.order_Date)}</td>
                       <td>{data.order_Status}</td>
                       <td class="actions">

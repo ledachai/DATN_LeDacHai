@@ -26,7 +26,7 @@ class Index extends Component{
         <header id="header" className="header fixed-top d-flex align-items-center">
           <div className="d-flex align-items-center justify-content-between">
             <a href="index.html" className="logo d-flex align-items-center">
-              <img src="./img/logo.png" alt="" />
+              <img src="./img/logo.jpg" alt="" />
               <span className="d-none d-lg-block">WatchStore</span>
             </a>
             <i className="bi bi-list toggle-sidebar-btn"/>

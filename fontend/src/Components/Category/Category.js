@@ -250,7 +250,7 @@ class Category extends Component {
                         {/* <td>{data.cate_ID}</td> */}
                         <td>{data.cate_Name}</td>
                         <td>{data.cate_Descibe}</td>
-                        <td>{data.cate_Count}</td>
+                        <td>{data.cate_Count} sản phẩm</td>
                         <td class="actions">
                             <div className="flex_center">
                                 <div className="update" commandtype="update" onClick={() => this.openEditFormCategory(data)}>

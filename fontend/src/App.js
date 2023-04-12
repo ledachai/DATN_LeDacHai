@@ -1,6 +1,6 @@
 import './App.css';
-import Index from './Components';
 import React, { Component } from 'react';
+import Index from './Components';
 import Login from './Components/Login';
 import Admin from './Components/Admin';
 
@@ -13,25 +13,23 @@ class App extends Component {
     }
   }
   render(){
-    // if(localStorage.getItem("Token")){
-    //   if(localStorage.getItem("Role") === "Nhân Viên"){
-    //     return (
-    //       <Index
-    //       userName = {localStorage.getItem("UserName")}/>
-    //     );
-    //   }
-    //   return(
-    //     <Admin/>
-    //   );
-    // }
-    // else{
-    //   return(
-    //       <Login/>
-    //   );
-    // }
-    return(
-      <Index/>
-    )
+    if(localStorage.getItem("Token")){
+      if(localStorage.getItem("Role") === "Nhân Viên"){
+        return (
+          <Index/>
+        );
+      }
+      else{
+        return(
+        <Admin/>
+        );
+      }
+    }
+    else{
+      return(
+          <Login/>
+      );
+    }
   }
 }
 

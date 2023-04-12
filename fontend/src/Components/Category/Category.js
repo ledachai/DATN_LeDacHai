@@ -77,7 +77,7 @@ class Category extends Component {
                     Swal.fire(
                         'Không thể thực hiện thêm!',
                         'Đã xảy ra một vấn đề nào đó',
-                        'warning'
+                        'error'
                     )
                 }
             })
@@ -85,7 +85,7 @@ class Category extends Component {
                 Swal.fire(
                     'Không thể thực hiện thêm!',
                     'Đã xảy ra một vấn đề nào đó',
-                    'warning'
+                    'error'
                 )
             });
         this.clearInsertText();
@@ -154,7 +154,7 @@ class Category extends Component {
                     Swal.fire(
                         'Không thể thực hiện sửa!',
                         'Đã xảy ra một vấn đề nào đó',
-                        'warning'
+                        'error'
                     )
                 }
             })
@@ -162,7 +162,7 @@ class Category extends Component {
                 Swal.fire(
                     'Không thể thực hiện sửa!!',
                     'Đã xảy ra một vấn đề nào đó',
-                    'warning'
+                    'error'
                 )
                 console.log(error)
             });

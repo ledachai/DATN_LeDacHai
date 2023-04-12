@@ -170,7 +170,7 @@ class Index extends Component{
                 </a>{/* End Profile Iamge Icon */}
                 <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                   <li className="dropdown-header">
-                    <h6>{localStorage.getItem("EmployeeName")}</h6>
+                    <h6>{localStorage.getItem("FullName")}</h6>
                     <span>{localStorage.getItem("Role")}</span>
                   </li>
                   <li>
@@ -242,7 +242,7 @@ class Index extends Component{
             </li>
             <li className="nav-item">
               <NavLink to="/Customers" className="nav-link collapsed">
-                <i className="bi bi-people" /><span>Danh sách người dùng</span>
+                <i className="bi bi-people" /><span>Danh sách khách hàng</span>
               </NavLink>
             </li>
             <li className="nav-item">

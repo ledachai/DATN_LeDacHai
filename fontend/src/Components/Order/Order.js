@@ -67,7 +67,7 @@ class Order extends Component {
                     Swal.fire(
                         'Có lỗi xảy ra!',
                         'Đã xảy ra một vấn đề nào đó',
-                        'warning'
+                        'error'
                     )
                 }
             })
@@ -75,7 +75,7 @@ class Order extends Component {
                 Swal.fire(
                     'Lỗi giao hàng',
                     'Đơn hàng đã được giao hoặc đã hủy!',
-                    'warning'
+                    'error'
                 )
             });
     };
@@ -100,7 +100,7 @@ class Order extends Component {
                   Swal.fire(
                       'Có lỗi xảy ra!',
                       'Đã xảy ra một vấn đề nào đó',
-                      'warning'
+                      'error'
                     )
               }
           })
@@ -108,7 +108,7 @@ class Order extends Component {
               Swal.fire(
                   'Lỗi xác nhận!',
                   'Đơn hàng đang giao hoặc đã giao',
-                  'warning'
+                  'error'
               )
           });
   };
@@ -146,7 +146,7 @@ class Order extends Component {
           buttonsStyling: false
       })
       swalWithBootstrapButtons.fire({
-          title: 'Xác nhận?',
+          title: 'Xác nhận đơn hàng?',
           text: "Thao tác này có thể không hoàn tác được!",
           icon: 'warning',
           showCancelButton: true,
@@ -197,8 +197,12 @@ class Order extends Component {
                       <td>{data.order_Status}</td>
                       <td class="actions">
                           <div className="flex_center">
-                              <button type="button" class="btn btn-outline-success btn-sm" onClick={() => this.showUpdateConfirmAlert(data)}>Xác nhận</button>
-                              <button type="button" class="btn btn-outline-secondary btn-sm" onClick={() => this.showInsertConfirmAlert(data)}>Giao hàng</button>
+                                <button type="button" class="btn btn-outline-success btn-sm" onClick={() => this.showUpdateConfirmAlert(data)}>
+                                    <i class='fa fa-check'></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onClick={() => this.showInsertConfirmAlert(data)}>
+                                    <i class='fas fa-long-arrow-alt-right'></i>
+                                </button>
                           </div> 
                       </td>
                   </tr>

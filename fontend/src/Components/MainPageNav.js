@@ -5,25 +5,21 @@ import { Route, Routes } from "react-router-dom";
 import Product from "./Product/Product";
 import OrderDetail from "./OrderDetail/OrderDetail";
 import Customer from "./Customer/Customer";
+import Employee from "./Employee/Employee";
+import Admin1 from "./Customer/Admin";
 
 class MainPageNav extends Component{
     render(){
 
         return(
         <Routes>
-            {/* <Route path="/HomePage" element={<HomePage/>}></Route>
-            <Route path="/guests" element={<Guest/>}></Route>
-            <Route path="/OrderRoom" element={<OrderRoom/>}></Route>
-            <Route path="/OrderService" element={<OrderService/>}></Route>
-            <Route path="/Services" element={<Service/>}></Route>
-            <Route path="/Rooms" element={<Room/>}></Route>
-            <Route path="/Bills" element={<Bill/>}></Route>
-            <Route path="/Accounts" element={<Account/>}></Route> */}
             <Route path="/Categories" element={<Category/>}></Route>
             <Route path="/Products" element={<Product/>}></Route>
             <Route path="/Orders" element={<Order/>}></Route>
             <Route path="/Reports" element={<OrderDetail/>}></Route>
             <Route path="/Customers" element={<Customer/>}></Route>
+            <Route path="/Employees" element={<Employee/>}></Route>
+            <Route path="/Admins" element={<Admin1/>}></Route>
         </Routes>
         );
     }

@@ -121,7 +121,7 @@ class Product extends Component{
                     Swal.fire(
                         'Không thể thực hiện sửa!',
                         'Đã xảy ra một vấn đề nào đó',
-                        'warning'
+                        'error'
                     )
                 }
             })
@@ -129,7 +129,7 @@ class Product extends Component{
                 Swal.fire(
                     'Không thể sửa!!',
                     'Đã xảy ra một vấn đề nào đó',
-                    'warning'
+                    'error'
                 )
                 console.log(error)
             });
@@ -157,7 +157,7 @@ class Product extends Component{
                     Swal.fire(
                         'Không thể thực hiện xóa!',
                         'Đã xảy ra một vấn đề nào đó',
-                        'success'
+                        'error'
                     )
                 }
             })
@@ -165,7 +165,7 @@ class Product extends Component{
                 Swal.fire(
                     'Không thể thực hiện xóa!',
                     'Đã xảy ra một vấn đề nào đó',
-                    'success'
+                    'error'
                 )
             });
             this.componentDidMount();

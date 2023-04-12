@@ -118,7 +118,6 @@ class OrderDetail extends Component {
                   renderThongKeList={this.renderThongKeList}
                   showListThongKe={this.state.showListThongKe}
                   openListThongKe={this.openListThongKe}
-                  handleButtonThongKe={this.handleButtonThongKe}
                 //   handleYearChange={this.handleYearChange}
                   ButtonThongKe={this.ButtonThongKe}
               />

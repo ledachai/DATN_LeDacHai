@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import Index from './Components';
 import Login from './Components/Login';
 import Admin from './Components/Admin';
+import Home from './Components/Home';
+
 
 class App extends Component {
   constructor(pros){
@@ -17,6 +19,11 @@ class App extends Component {
       if(localStorage.getItem("Role") === "Nhân Viên"){
         return (
           <Index/>
+        );
+      }
+      else if(localStorage.getItem("Role") === "Khách hàng"){
+        return (
+          <Home/>
         );
       }
       else{

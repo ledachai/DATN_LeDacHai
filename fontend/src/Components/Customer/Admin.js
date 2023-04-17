@@ -11,19 +11,19 @@ class Admin1 extends Component {
             defaultUrl: "https://localhost:5001/api/V1/People/GetPeopleByRole?PageIndex=1&RowPerPage=100&Search=Admin"
         }
     }
-    // getConfigToken() {
-    //     let config = {
-    //         headers: {
-    //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-    //             "Content-type": "application/json"
-    //         }
-    //     };
-    //     return config;
-    // }
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
 
     getData(url){
-        //let config = this.getConfigToken();
-        axios.get(url)
+        let config = this.getConfigToken();
+        axios.get(url, config)
         .then((response) => {
             this.setState({
                 Admin: response.data
@@ -46,9 +46,6 @@ class Admin1 extends Component {
             day = date.getDate().toString().padStart(2, '0');
 
         return `${year}-${month}-${day}`;
-    }
-    componentDidMount = (url = this.state.defaultUrl) => {
-        this.getData(url);
     }
     // FOR DISPLAY LIST DATA
     renderAdmin = () => {

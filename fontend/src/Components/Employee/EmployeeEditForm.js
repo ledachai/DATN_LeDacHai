@@ -101,7 +101,7 @@ class EmployeeEditForm extends Component {
                 </div>
             </div>
             <div className="flex_right">
-              <button className="ms-btn cancel_btn"  onClick={() => this.props.openEditFormEmployee()} >Hủy</button>
+              <button className="ms-btn cancel_btn"  onClick={() => this.props.closeEditFormEmployee()} >Hủy</button>
               <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeEditForm()}><i className="far fa-save icon"/>Lưu</button>
             </div>
           </form>

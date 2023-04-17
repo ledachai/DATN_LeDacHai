@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 class OrderDetailList extends Component{
     constructor(props){
         super(props);

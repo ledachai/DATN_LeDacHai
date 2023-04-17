@@ -6,10 +6,11 @@ using System;
 using WatchStore.Entities;
 using WatchStore.Interface;
 using WatchStore.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WatchStore.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/V1/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase

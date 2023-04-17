@@ -9,7 +9,7 @@ using WatchStore.Interface;
 
 namespace WatchStore.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/V1/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

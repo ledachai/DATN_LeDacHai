@@ -1,10 +1,5 @@
 import React, {Component} from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
 class ThongKeList extends Component{
-    constructor(props){
-        super(props);
-    }
     render(){
         if (this.props.showListThongKe === false) return null;
         return(

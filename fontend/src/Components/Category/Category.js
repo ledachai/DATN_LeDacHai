@@ -20,26 +20,22 @@ class Category extends Component {
             // for put
             showEditFormCategory: false,
             cate_ID: '',
-
-            // for delete
-            // TKIDToDelete: "",
-
             defaultUrl: "https://localhost:5001/api/V1/Category"
         }
     }
-    // getConfigToken() {
-    //     let config = {
-    //         headers: {
-    //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-    //             "Content-type": "application/json"
-    //         }
-    //     };
-    //     return config;
-    // }
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
 
     componentDidMount() {
-        //let config = this.getConfigToken();
-        axios.get(this.state.defaultUrl)
+        let config = this.getConfigToken();
+        axios.get(this.state.defaultUrl, config)
             .then((response) => {
                 this.setState({
                     Categories: response.data
@@ -57,13 +53,13 @@ class Category extends Component {
     };
 
     postData = () => {
-        //let config = this.getConfigToken();
+        let config = this.getConfigToken();
         //let isInsertSuccess
         axios
             .post(this.state.defaultUrl, {
                 cate_Name: this.state.cate_Name,
                 cate_Descibe: this.state.cate_Descibe
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -132,15 +128,13 @@ class Category extends Component {
 
     putData = () => {
         var url = this.state.defaultUrl;
-        //let config = this.getConfigToken();
-        //console.log("haha")
-        //let isEditSuccess;
+        let config = this.getConfigToken();
         axios
             .put(url, {
                 cate_ID: this.state.cate_ID,
                 cate_Name: this.state.cate_Name,
                 cate_Descibe: this.state.cate_Descibe
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -171,96 +165,24 @@ class Category extends Component {
         this.closeEditFormCategory();
     };
 
-
-    // FOR DELETE
-
-    // HTTP DELETE
-    // deleteAccount = (TKID) => {
-    //     var url = this.state.defaultUrl + "/" + TKID;
-    //     let config = this.getConfigToken();
-    //     axios
-    //         .delete(url, config)
-    //         .then(response => {
-    //             if (response.data) {
-    //                 Swal.fire(
-    //                     'Xóa thành công!',
-    //                     'Thay đổi đã xảy ra',
-    //                     'success'
-    //                 )
-    //             }
-    //             else {
-    //                 Swal.fire(
-    //                     'Không thể thực hiện xóa!',
-    //                     'Đã xảy ra một vấn đề nào đó',
-    //                     'success'
-    //                 )
-    //             }
-    //         })
-    //         .catch(error => {
-    //             Swal.fire(
-    //                 'Không thể thực hiện xóa!',
-    //                 'Đã xảy ra một vấn đề nào đó',
-    //                 'success'
-    //             )
-    //         });
-    //     this.componentDidMount();
-    // };
-
-
-    // showDeleteConfirmAlert = (data) => {
-    //     const swalWithBootstrapButtons = Swal.mixin({
-    //         customClass: {
-    //             confirmButton: 'btn btn-success',
-    //             cancelButton: 'btn btn-danger'
-    //         },
-    //         buttonsStyling: false
-    //     })
-    //     swalWithBootstrapButtons.fire({
-    //         title: 'Bạn có chắc chắn?',
-    //         text: "Thao tác này có thể không hoàn tác được!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonText: 'Xoá!',
-    //         cancelButtonText: 'Không!',
-    //         reverseButtons: true
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             this.deleteAccount(data.tkid);
-    //             // end comfirmed
-    //         } else if (
-    //             /* Read more about handling dismissals below */
-    //             result.dismiss === Swal.DismissReason.cancel
-    //         ) {
-    //             swalWithBootstrapButtons.fire(
-    //                 'Cancelled',
-    //                 'Không có gì xảy ra',
-    //                 'success'
-    //             )
-    //         }
-    //     })
-    // }
-
-
     // FOR DISPLAY LIST DATA
     renderCategory = () => {
         return this.state.Categories.map((data, index) => {
-            // if(data.role !== "admin"){
-                return (
-                    <tr key={data.cate_ID}>
-                        {/* <td>{data.cate_ID}</td> */}
-                        <td>{data.cate_Name}</td>
-                        <td>{data.cate_Descibe}</td>
-                        <td>{data.cate_Count} sản phẩm</td>
-                        <td class="actions">
-                            <div className="flex_center">
-                                <div className="update" commandtype="update" onClick={() => this.openEditFormCategory(data)}>
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </div>
-                            </div> 
-                        </td>
-                    </tr>
-                );
-            // }
+            return (
+                <tr key={data.cate_ID}>
+                    {/* <td>{data.cate_ID}</td> */}
+                    <td>{data.cate_Name}</td>
+                    <td>{data.cate_Descibe}</td>
+                    <td>{data.cate_Count} sản phẩm</td>
+                    <td class="actions">
+                        <div className="flex_center">
+                            <div className="update" commandtype="update" onClick={() => this.openEditFormCategory(data)}>
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                        </div> 
+                    </td>
+                </tr>
+            );
         }
         );
     }

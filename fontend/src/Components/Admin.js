@@ -154,7 +154,7 @@ class Admin extends Component{
               </li>{/* End Messages Nav */}
               <li className="nav-item dropdown pe-3">
                 <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                  <img src="./img/profile-img.jpg" alt="Profile" className="rounded-circle" />
+                  <img src="./img/profile-img.jpg" style={{width: '30px'}} alt="Profile" className="rounded-circle" />
                   <span className="d-none d-md-block dropdown-toggle ps-2">{this.props.userName}</span>
                 </a>{/* End Profile Iamge Icon */}
                 <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -212,9 +212,36 @@ class Admin extends Component{
                 <span>Quản lý nhân viên</span>
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink to="/Admins" className="nav-link collapsed">
                 <i className="bi bi-people" /><span>Danh sách quản trị viên</span>
+              </NavLink>
+            </li> */}
+            <li className="nav-item">
+              <NavLink to="/Categories" className="nav-link collapsed">
+                <i className="bi bi-grid" /><span>Quản lý danh mục</span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/Products" className="nav-link collapsed">
+                {/* <i className="bi bi-layout-text-window-reverse" /><span>Quản lý sản phẩm</span> */}
+                <i className="bi bi-clock" /><span>Quản lý sản phẩm</span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/Orders" className="nav-link collapsed">
+                {/* <i className="bi bi-bar-chart" /><span>Quản lý đơn hàng</span> */}
+                <i className="bi bi-layout-text-window-reverse" /><span>Quản lý đơn hàng</span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/Customers" className="nav-link collapsed">
+                <i className="bi bi-people" /><span>Danh sách người dùng</span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/Reports" className="nav-link collapsed">
+                <i className="bi bi-bar-chart" /><span>Thống kê</span>
               </NavLink>
             </li>
           </ul>

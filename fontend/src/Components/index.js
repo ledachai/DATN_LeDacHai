@@ -165,7 +165,7 @@ class Index extends Component{
               </li>{/* End Messages Nav */}
               <li className="nav-item dropdown pe-3">
                 <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                  <img src="./img/profile-img.jpg" alt="Profile" className="rounded-circle" />
+                  <img src="./img/profile-img.jpg" style={{width: '30px'}} alt="Profile" className="rounded-circle" />
                   <span className="d-none d-md-block dropdown-toggle ps-2">{this.props.userName}</span>
                 </a>{/* End Profile Iamge Icon */}
                 <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -217,12 +217,6 @@ class Index extends Component{
         {/* ======= Sidebar ======= */}
         <aside id="sidebar" className="sidebar">
           <ul className="sidebar-nav" id="sidebar-nav">
-            {/*<li className="nav-item">
-              <NavLink to="/HomePage" className="nav-link collapsed">
-                <i className="bi bi-grid" />
-                <span>Quản lý khách sạn</span>
-              </NavLink>
-            </li> End Dashboard Nav */}
             <li className="nav-item">
               <NavLink to="/Categories" className="nav-link collapsed">
                 <i className="bi bi-grid" /><span>Quản lý danh mục</span>
@@ -241,15 +235,15 @@ class Index extends Component{
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/Customers" className="nav-link collapsed">
+              <NavLink to="/Guess" className="nav-link collapsed">
                 <i className="bi bi-people" /><span>Danh sách khách hàng</span>
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink to="/Reports" className="nav-link collapsed">
                 <i className="bi bi-bar-chart" /><span>Thống kê</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </aside>
         <main id="main" classname="main">

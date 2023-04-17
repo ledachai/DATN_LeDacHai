@@ -9,37 +9,25 @@ class Order extends Component {
       this.state = {
           Orders: [],
           showListOrder: true,
-          //showFormCategory: false,
-          //showListCategory: true,
-          // for post
-          //cate_Name: '',
-          //cate_Descibe: '',
-
-          // for put
-          //showEditFormCategory: false,
           order_ID: '',
-
-          // for delete
-          // TKIDToDelete: "",
 
           defaultUrl: "https://localhost:5001/api/V1/Order/GetAllOrder",
           urlforput: "https://localhost:5001/api/V1/Order/UpdateStatus?Order_ID=",
           urlforinsert: "https://localhost:5001/api/V1/OrderDetail/"
       }
   }
-  // getConfigToken() {
-  //     let config = {
-  //         headers: {
-  //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-  //             "Content-type": "application/json"
-  //         }
-  //     };
-  //     return config;
-  // }
-
+  getConfigToken() {
+    let config = {
+        headers: {
+            "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+            "Content-type": "application/json"
+        }
+    };
+    return config;
+}
   componentDidMount() {
-      //let config = this.getConfigToken();
-      axios.get(this.state.defaultUrl)
+      let config = this.getConfigToken();
+      axios.get(this.state.defaultUrl, config)
           .then((response) => {
               this.setState({
                   Orders: response.data
@@ -49,11 +37,13 @@ class Order extends Component {
     // FOR POST
 
     postData = (order_ID) => {
-        //let config = this.getConfigToken();
+        let config = this.getConfigToken();
         //let isInsertSuccess
         var url = this.state.urlforinsert + order_ID;
         axios
-            .post(url)
+            .post(url,{
+                order_ID: this.state.order_ID
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -84,9 +74,11 @@ class Order extends Component {
   //HTTP update status
   updateStatus = (order_ID) => {
       var url = this.state.urlforput + order_ID;
-      //let config = this.getConfigToken();
+      let config = this.getConfigToken();
       axios
-          .put(url)
+          .put(url,{
+            order_ID: this.state.order_ID
+        }, config)
           .then(response => {
               if (response.data) {
                   Swal.fire(
@@ -110,6 +102,7 @@ class Order extends Component {
                   'Đơn hàng đang giao hoặc đã giao',
                   'error'
               )
+              console.log(error)
           });
   };
 

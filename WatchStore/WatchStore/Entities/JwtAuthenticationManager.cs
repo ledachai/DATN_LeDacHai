@@ -41,6 +41,7 @@ namespace WatchStore.Entities
             {
                 Peo_Email = Peo_Email,
                 Token = token,
+                Peo_ID = KQ.Peo_ID,
                 Per_Name = KQ.Per_Name,
                 Peo_Fullname = KQ.Peo_Fullname,
                 Expires_in = (int)tokenExpiryTimeStamp.Subtract(DateTime.Now).TotalSeconds
@@ -57,7 +58,7 @@ namespace WatchStore.Entities
                     {
                         if (People.Peo_Email == Peo_Email && People.Peo_Password == Peo_Password)
                         {
-                            return new PeopleResponse(People.Per_Name, People.Peo_Fullname);
+                            return new PeopleResponse(People.Per_Name, People.Peo_Fullname, People.Peo_ID);
                         }
                     }
                     return null;

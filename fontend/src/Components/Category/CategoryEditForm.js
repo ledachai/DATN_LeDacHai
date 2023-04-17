@@ -19,7 +19,6 @@ class CategoryEditForm extends Component {
     if (cate_Descibe === "") {
         errorOfCateDescibe = errorOfCateDescibe + "Mô tả không được bỏ trống!\n";
     }
-    var format = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
     if (format.test(cate_Name)) {
         errorOfCateDescibe += "Mô tả không được chứa ký tự đặc biệt";
     }
@@ -73,7 +72,7 @@ class CategoryEditForm extends Component {
               </div>
             </div>
             <div className="flex_right">
-              <button className="ms-btn cancel_btn"  onClick={() => this.props.renderFormCategory()} >Hủy</button>
+              <button className="ms-btn cancel_btn"  onClick={() => this.props.closeEditFormCategory()} >Hủy</button>
               <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateCategoryEditForm()}><i className="far fa-save icon"/>Lưu</button>
             </div>
           </form>

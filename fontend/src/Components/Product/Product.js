@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios"; 
-import RoomUpdatetForm from "./ProductFormUpdatet";
 import ProductList from "./ProductList";
 import Pagination from "react-js-pagination";
 import Swal from "sweetalert2";
@@ -33,6 +32,15 @@ class Product extends Component{
 
             defaultUrl: "https://localhost:5001/api/V1/Product"
         }
+    }
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
     }
     //put api
     handleFormProNameChange = (value)=>{
@@ -96,9 +104,7 @@ class Product extends Component{
 
     putData = () => {
         var url = this.state.defaultUrl;
-        //let config = this.getConfigToken();
-        //console.log("haha")
-        //let isEditSuccess;
+        let config = this.getConfigToken();
         axios
             .put(url, {
                 pro_ID: this.state.pro_ID,
@@ -107,7 +113,7 @@ class Product extends Component{
                 pro_Image: this.state.pro_Image,
                 pro_Number: this.state.pro_Number,
                 pro_Describe: this.state.pro_Describe
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -141,9 +147,9 @@ class Product extends Component{
     // HTTP DELETE
     deleteProduct = (pro_ID) => {
         var url = this.state.defaultUrl + "/" + pro_ID;
-        // let config = this.getConfigToken();
+        let config = this.getConfigToken();
         axios
-            .delete(url)
+            .delete(url, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -208,8 +214,7 @@ class Product extends Component{
     };
 
     postData = () => {
-        //let config = this.getConfigToken();
-        //let isInsertSuccess
+        let config = this.getConfigToken();
         axios
             .post(this.state.defaultUrl, {
                 pro_Name: this.state.pro_Name,
@@ -218,7 +223,7 @@ class Product extends Component{
                 pro_Describe: this.state.pro_Describe,
                 pro_Number: this.state.pro_Number,
                 cate_ID: this.state.cate_ID
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -250,8 +255,8 @@ class Product extends Component{
 
     //get api
     getData(url){
-        //let config = this.getConfigToken();
-        axios.get(url)
+        let config = this.getConfigToken();
+        axios.get(url, config)
         .then((response) => {
             this.setState({
                 Product: response.data
@@ -279,8 +284,7 @@ class Product extends Component{
                     <td>{item.pro_Describe}</td>
                     <td>{this.formatMoney(item.pro_Price)} đ</td>
                     <td>{item.pro_Number}</td>
-                    {/* <td>{item.cate_Name}</td> */}
-                    <td>{<img style={{width: '40px', height: '40px'}} src="../img/product-2.jpg" alt="" />}</td>
+                    <td>{<img style={{width: '40px', height: '40px'}} src={'../img/'+item.pro_Image} alt="" />}</td>
                     <td>
                         <div className="flex_center">
                             <div className="update" commandtype="update" onClick={() => this.openEditFormProduct(item)}>

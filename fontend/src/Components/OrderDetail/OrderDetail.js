@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Swal from 'sweetalert2'
 import OrderDetailList from "./OrderDetailList";
 import ThongKeList from "./ThongKeList";
 
@@ -16,23 +15,23 @@ class OrderDetail extends Component {
           defaultUrl: "https://localhost:5001/api/V1/OrderDetail",
       }
   }
-  // getConfigToken() {
-  //     let config = {
-  //         headers: {
-  //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-  //             "Content-type": "application/json"
-  //         }
-  //     };
-  //     return config;
-  // }
+  getConfigToken() {
+      let config = {
+          headers: {
+              "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+              "Content-type": "application/json"
+          }
+      };
+      return config;
+  }
     ButtonThongKe = (year) => {
         let url = "https://localhost:5001/api/V1/OrderDetail/" + year;
-        console.log(url)
+        //console.log(url)
         this.getThongKe(url);
     }
     componentDidMount() {
-      //let config = this.getConfigToken();
-      axios.get(this.state.defaultUrl)
+      let config = this.getConfigToken();
+      axios.get(this.state.defaultUrl, config)
           .then((response) => {
               this.setState({
                   OrderDetail: response.data
@@ -40,7 +39,8 @@ class OrderDetail extends Component {
           });
     }
     getThongKe(url){
-        axios.get(url)
+        let config = this.getConfigToken();
+        axios.get(url, config)
             .then((response) =>{
                 this.setState({
                     ThongKe: response.data
@@ -118,7 +118,6 @@ class OrderDetail extends Component {
                   renderThongKeList={this.renderThongKeList}
                   showListThongKe={this.state.showListThongKe}
                   openListThongKe={this.openListThongKe}
-                //   handleYearChange={this.handleYearChange}
                   ButtonThongKe={this.ButtonThongKe}
               />
           </div>

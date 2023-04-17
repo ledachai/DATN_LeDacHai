@@ -113,7 +113,7 @@ class ProductFormUpdate extends Component {
               </div>
             </div>
             <div className="flex_right">
-              <button className="ms-btn cancel_btn"  onClick={() => this.props.renderFormProductInsert()} >Hủy</button>
+              <button className="ms-btn cancel_btn"  onClick={() => this.props.closeEditFormProduct()} >Hủy</button>
               <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateProductUpdateForm()}><i className="far fa-save icon"/>Lưu</button>
             </div>
           </form>

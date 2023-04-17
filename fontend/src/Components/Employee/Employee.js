@@ -25,20 +25,19 @@ class Employee extends Component {
             defaultUrl: "https://localhost:5001/api/Employee"
         }
     }
-    // getConfigToken() {
-    //     let config = {
-    //         headers: {
-    //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-    //             "Content-type": "application/json"
-    //         }
-    //     };
-    //     return config;
-    // }
-
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
     
     getData(url){
-        //let config = this.getConfigToken();
-        axios.get(url)
+        let config = this.getConfigToken();
+        axios.get(url, config)
         .then((response) => {
             this.setState({
                 Employee: response.data
@@ -66,7 +65,7 @@ class Employee extends Component {
     };
 
     postData = () => {
-        //let config = this.getConfigToken();
+        let config = this.getConfigToken();
         //let isInsertSuccess
         axios
             .post(this.state.defaultUrl, {
@@ -76,7 +75,7 @@ class Employee extends Component {
                 peo_Dateofbirth: this.state.peo_Dateofbirth,
                 peo_Address: this.state.peo_Address,
                 peo_Sex: this.state.peo_Sex
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -166,9 +165,7 @@ class Employee extends Component {
 
     putData = () => {
         var url = this.state.defaultUrl;
-        //let config = this.getConfigToken();
-        //console.log("haha")
-        //let isEditSuccess;
+        let config = this.getConfigToken();
         axios
             .put(url, {
                 peo_ID: this.state.peo_ID,
@@ -176,7 +173,7 @@ class Employee extends Component {
                 peo_Dateofbirth: this.state.peo_Dateofbirth,
                 peo_Address: this.state.peo_Address,
                 peo_Sex: this.state.peo_Sex
-            })
+            }, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -212,9 +209,9 @@ class Employee extends Component {
     // FOR DELETE
     deleteEmployee = (peo_ID) => {
         var url = this.state.defaultUrl + "/" + peo_ID;
-        // let config = this.getConfigToken();
+        let config = this.getConfigToken();
         axios
-            .delete(url)
+            .delete(url, config)
             .then(response => {
                 if (response.data) {
                     Swal.fire(
@@ -333,6 +330,7 @@ class Employee extends Component {
                 <EmployeeEditForm
                     showFormEditEmployee={this.state.showFormEditEmployee}
                     openEditFormEmployee={this.openEditFormEmployee}
+                    closeEditFormEmployee={this.closeEditFormEmployee}
                     handleFormPeoFullnameChange={this.handleFormPeoFullnameChange}
                     handleFormPeoDateofbirthChange={this.handleFormPeoDateofbirthChange}
                     handleFormPeoSexChange={this.handleFormPeoSexChange}

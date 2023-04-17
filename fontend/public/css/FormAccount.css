@@ -1,11 +1,10 @@
-* {
+/** {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
 }
 
 .container {
-    /* width: 100%; */
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -111,7 +110,7 @@ h1 {
     text-align: right;
     margin-top: 30px;
 }
-
+ 
 .btn-box button {
     padding: 7.5px 15px;
     border-radius: 2px;
@@ -119,4 +118,4 @@ h1 {
     color: #ffffff;
     border: none;
     outline: none;
-}
+} */

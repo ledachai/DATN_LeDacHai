@@ -11,19 +11,19 @@ class Customer extends Component {
             defaultUrl: "https://localhost:5001/api/V1/People/GetPeopleByRole"
         }
     }
-    // getConfigToken() {
-    //     let config = {
-    //         headers: {
-    //             "Authorization": 'Bearer ' + localStorage.getItem("Token"),
-    //             "Content-type": "application/json"
-    //         }
-    //     };
-    //     return config;
-    // }
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
 
     getData(url){
-        //let config = this.getConfigToken();
-        axios.get(url)
+        let config = this.getConfigToken();
+        axios.get(url, config)
         .then((response) => {
             this.setState({
                 Customer: response.data

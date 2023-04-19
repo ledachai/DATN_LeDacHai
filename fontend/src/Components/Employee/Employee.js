@@ -204,8 +204,6 @@ class Employee extends Component {
         //this.clearInsertText();
         this.closeEditFormEmployee();
     };
-
-
     // FOR DELETE
     deleteEmployee = (peo_ID) => {
         var url = this.state.defaultUrl + "/" + peo_ID;

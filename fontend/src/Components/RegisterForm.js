@@ -8,11 +8,6 @@ class RegisterForm extends Component{
   constructor() {
     super();
     this.state = {
-        // showFormEmployee: false,
-        // showListEmployee: true,
-        // showFormEditEmployee: false,
-        // for post, put
-        //peo_ID: '',
         peo_Fullname: '',
         peo_Password: '',
         peo_Email: '',
@@ -54,8 +49,6 @@ class RegisterForm extends Component{
       });
   };
   postData = () => {
-    //let config = this.getConfigToken();
-    //let isInsertSuccess
     axios
         .post(this.state.defaultUrl, {
             peo_Fullname: this.state.peo_Fullname,
@@ -68,8 +61,8 @@ class RegisterForm extends Component{
         .then(response => {
             if (response.data) {
                 Swal.fire(
-                    'Thêm thành công!',
-                    'Thay đổi đã xảy ra',
+                    'Đăng ký thành công!',
+                    'Bạn có thể đăng nhập bây giờ',
                     'success'
                 )
             }
@@ -83,13 +76,11 @@ class RegisterForm extends Component{
         })
         .catch(error => {
             Swal.fire(
-                'Thêm thất bại!',
+                'Đăng ký thất bại!',
                 'Đã xảy ra một vấn đề nào đó',
                 'error'
             )
         });
-    // this.clearInsertText();
-    // this.renderFormEmployeeInsert();
   };
     validateEmployeeForm = () => {
       // validate text
@@ -156,7 +147,7 @@ class RegisterForm extends Component{
         return (
           <div className="card">
             <div className="card-body">
-              <h5 className="card-title">Đăng ký</h5>
+              <h1 className="card-title" style={{textAlign:'center'}}>Đăng ký tài khoản</h1>
                   <form>
                     <div className="row mb-3">
                       <label htmlFor="inputPeoFullname" className="col-sm-2 col-form-label">Họ tên</label>
@@ -221,13 +212,75 @@ class RegisterForm extends Component{
                         </div>
                     </div>
                     <div className="flex_right">
-                      <NavLink to="/Login" className="btn btn-sucess btn-lg">
-                          <span>Đăng Nhập</span>
-                      </NavLink>
+                      <button className="ms-btn cancel_btn">
+                        <NavLink to="/Login">
+                            <span>Đăng Nhập</span>
+                        </NavLink>
+                      </button>
                       <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeForm()}><i className="far fa-save icon"/>Đăng Ký</button>
                     </div>
-                  </form>
+                  </form> 
+                  {/* <form class="px-md-2">
+
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" id="inputPeoFullname" 
+                        onChange={(event) =>this.handleFormPeoFullnameChange(event.target.value)}/>
+                      <label htmlFor="inputPeoFullname" class="form-label">Họ tên</label>
+                    </div>
+                    <label style={errorLabel} id="errorOfPeoFullname"></label>
+                    <div class="form-outline mb-4">
+                      <input type="text" class="form-control" id="inputPeoEmail"  
+                        onChange={(event) =>this.handleFormPeoEmailChange(event.target.value)}/>
+                      <label htmlFor="inputPeoEmail" class="form-label">Email</label>
+                    </div>
+                    <label style={errorLabel} id="errorOfPeoEmail"></label>
+                    <div class="form-outline mb-4">
+                      <input type="password" class="form-control" id="inputPeoPassword" 
+                        onChange={(event) =>this.handleFormPeoPasswordChange(event.target.value)}/>
+                      <label htmlFor="inputPeoPassword" class="form-label">Password</label>
+                    </div>
+                    <label style={errorLabel} id="errorOfPeoPassword"></label>
+                    <div class="form-outline mb-4">
+                      <input type="date" class="form-control" id="inputPeoDateofbirth" 
+                        onChange={(event) =>this.handleFormPeoDateofbirthChange(event.target.value)}/>
+                      <label htmlFor="inputPeoDateofbirth" class="form-label">Ngày sinh</label>
+                    </div>
+                    <label style={errorLabel} id="errorOfPeoDateofbirth"></label>
+                    <div class="row">
+                      <div class="col-md-6 mb-4">
+
+                        <div class="form-outline datepicker">
+                          <input type="text" class="form-control" id="inputPeoAddress" 
+                            onChange={(event) =>this.handleFormPeoAddressChange(event.target.value)}/>
+                          <label htmlFor="inputPeoAddress" class="form-label">Địa chỉ</label>
+                        </div>
+                        <label style={errorLabel} id="errorOfPeoAddress"></label>
+                      </div>
+                      <div class="col-md-6 mb-4">
+
+                        <select class="select" id="inputPeoSex" onChange={(event) => this.handleFormPeoSexChange(event.target.value)}>
+                          <option value="Nam">Nam</option>
+                          <option value="Nữ">Nữ</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <button className="ms-btn cancel_btn">
+                      <NavLink to="/Login">
+                          <span>Đăng Nhập</span>
+                      </NavLink>
+                    </button>
+                    <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeForm()}><i className="far fa-save icon"/>Đăng Ký</button>
+
+                    </form>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </section> */}
+          </div>
             <Routes>
               <Route path="/Login" element={<Login/>}></Route>
             </Routes>

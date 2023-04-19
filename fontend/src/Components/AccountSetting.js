@@ -1,10 +1,147 @@
 import React, {Component} from 'react';
 import Home from './Home';
 import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 
 class AccountSetting extends Component {
+    constructor() {
+        super();
+        this.state = {
+            // showFormEmployee: false,
+            // showListEmployee: true,
+            // showFormEditEmployee: false,
+            // for post, put
+            peo_ID: '',
+            peo_Fullname: '',
+            peo_Dateofbirth: '',
+            peo_Address: '',
+            peo_Sex: '',
+    
+            defaultUrl: "https://localhost:5001/api/Employee"
+        }
+    }
+    handleFormPeoFullnameChange = (value) => {
+        this.setState({
+            peo_Fullname: value,
+            peo_ID: localStorage.getItem("Peo_ID")
+        });
+    };
+    handleFormPeoDateofbirthChange = (value) => {
+        this.setState({
+            peo_Dateofbirth: value,
+        });
+    };
+    handleFormPeoSexChange = (value) => {
+        this.setState({
+            peo_Sex: value,
+        });
+    };
+    handleFormPeoAddressChange = (value) => {
+        this.setState({
+            peo_Address: value,
+        });
+    };
+    getConfigToken() {
+        let config = {
+            headers: {
+                "Authorization": 'Bearer ' + localStorage.getItem("Token"),
+                "Content-type": "application/json"
+            }
+        };
+        return config;
+    }
+    putData = () => {
+        var url = this.state.defaultUrl;
+        let config = this.getConfigToken();
+        // console.log({
+        //     peo_ID: this.state.peo_ID,
+        //     peo_Fullname: this.state.peo_Fullname,
+        //     peo_Dateofbirth: this.state.peo_Dateofbirth,
+        //     peo_Address: this.state.peo_Address,
+        //     peo_Sex: this.state.peo_Sex
+        // })
+        axios
+            .put(url, {
+                peo_ID: this.state.peo_ID,
+                peo_Fullname: this.state.peo_Fullname,
+                peo_Dateofbirth: this.state.peo_Dateofbirth,
+                peo_Address: this.state.peo_Address,
+                peo_Sex: this.state.peo_Sex
+            }, config)
+            .then(response => {
+                if (response.data) {
+                    Swal.fire(
+                        'Đã sửa thông tin cá nhân!',
+                        'Thay đổi đã xảy ra',
+                        'success'
+                    )
+                }
+                else {
+                    Swal.fire(
+                        'Không thể thực hiện sửa!',
+                        'Đã xảy ra một vấn đề nào đó',
+                        'error'
+                    )
+                }
+            })
+            .catch(error => {
+                Swal.fire(
+                    'Không thể sửa!!',
+                    'Đã xảy ra một vấn đề nào đó',
+                    'error'
+                )
+                console.log(error)
+            });
+    };
+
+    validateEmployeeEditForm = () => {
+        // validate text
+        let errorOfPeoFullname = "";
+        let peo_Fullname = document.getElementById("inputPeoFullname").value;
+        if (peo_Fullname === "") {
+            errorOfPeoFullname = errorOfPeoFullname + "Họ tên không được bỏ trống!\n";
+        }
+        var format = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+        if (format.test(peo_Fullname)) {
+            errorOfPeoFullname += "Họ tên không được chứa ký tự đặc biệt";
+        }
+        let errorOfPeoAddress ="";
+        let peo_Address = document.getElementById("inputPeoAddress").value;
+        if(peo_Address===""){
+            errorOfPeoAddress = errorOfPeoAddress + "Địa chỉ không được để trống!\n";
+        }
+        let errorOfPeoDateofbirth = "";
+        let peo_Dateofbirth = document.getElementById("inputPeoDateofbirth").value;
+        if (peo_Dateofbirth === "") {
+            errorOfPeoDateofbirth = errorOfPeoDateofbirth + "Ngày sinh không được bỏ trống!\n";
+        }
+        let errorOfPeoSex = "";
+        let peo_Sex = document.getElementById("inputPeoSex").value;
+        if (peo_Sex === "") {
+            errorOfPeoSex = errorOfPeoSex + "Giới tính không được bỏ trống!\n";
+        }
+        if (errorOfPeoFullname || errorOfPeoAddress || errorOfPeoDateofbirth || errorOfPeoSex) {
+          Swal.fire(
+            'Cảnh báo\n\n Dữ liệu không hợp lệ',
+            '',
+            'error'
+          )
+          document.getElementById("errorOfPeoFullname").innerHTML = typeof errorOfPeoFullname === "undefined" ? "" : errorOfPeoFullname;
+          document.getElementById("errorOfPeoAddress").innerHTML = typeof errorOfPeoAddress === "undefined" ? "" : errorOfPeoAddress;
+          document.getElementById("errorOfPeoDateofbirth").innerHTML = typeof errorOfPeoDateofbirth === "undefined" ? "" : errorOfPeoDateofbirth;
+          document.getElementById("errorOfPeoSex").innerHTML = typeof errorOfPeoSex === "undefined" ? "" : errorOfPeoSex;
+        }
+        else {
+          this.putData();
+        }
+    };
     render() {
+        const errorLabel = {
+            color: "red",
+            padding: "10px",
+        }
         return(
             <div>
                 <Routes>
@@ -115,6 +252,97 @@ class AccountSetting extends Component {
             </header>
             {/* end header section */}
             {/* slider section */}
+            <section className="slider_section ">
+                <div id="customCarousel1" className="carousel slide" data-ride="carousel">
+                <div className="carousel-inner">
+                    <div className="carousel-item active">
+                    <div className="container-fluid ">
+                        <div className="row">
+                        <div className="col-md-6">
+                            <div className="detail-box">
+                            <h1>
+                                Smart Watches
+                            </h1>
+                            <p>
+                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
+                            </p>
+                            <div className="btn-box">
+                                <a href className="btn1">
+                                Contact Us
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="img-box">
+                            <img src="./img/slider-img.png" alt="" />
+                            {/* <img src="./img/hinh1.jpg" alt="" /> */}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="carousel-item ">
+                    <div className="container-fluid ">
+                        <div className="row">
+                        <div className="col-md-6">
+                            <div className="detail-box">
+                            <h1>
+                                Smart Watches
+                            </h1>
+                            <p>
+                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
+                            </p>
+                            <div className="btn-box">
+                                <a href className="btn1">
+                                Contact Us
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="img-box">
+                            <img src="./img/slider-img.png" alt="" />
+                            {/* <img src="./img/hinh39.jpg" alt="" /> */}
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="carousel-item ">
+                    <div className="container-fluid ">
+                        <div className="row">
+                        <div className="col-md-6">
+                            <div className="detail-box">
+                            <h1>
+                                Smart Watches
+                            </h1>
+                            <p>
+                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
+                            </p>
+                            <div className="btn-box">
+                                <a href className="btn1">
+                                Contact Us
+                                </a>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="img-box">
+                            <img src="./img/slider-img.png" alt="" />
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <ol className="carousel-indicators">
+                    <li data-target="#customCarousel1" data-slide-to={0} className="active" />
+                    <li data-target="#customCarousel1" data-slide-to={1} />
+                    <li data-target="#customCarousel1" data-slide-to={2} />
+                </ol>
+                </div>
+            </section>
             {/* end slider section */}
             </div>
             <div className="card">
@@ -123,65 +351,54 @@ class AccountSetting extends Component {
                 {/* Horizontal Form */}
                 <form>
                     <div className="row mb-3">
-                    <label htmlFor="inputProName" className="col-sm-2 col-form-label">Tên sản phẩm</label>
+                    <label htmlFor="inputPeoFullname" className="col-sm-2 col-form-label">Họ tên</label>
                     <div className="col-sm-6">
-                        <input type="text" className="form-control" id="inputProName" value={this.props.pro_Name}
+                        <input type="text" className="form-control" id="inputPeoFullname" value={this.peo_Fullname}
                         onChange={(event) =>
-                            this.props.handleFormProNameChange(event.target.value)
+                            this.handleFormPeoFullnameChange(event.target.value)
                         }
                         />
-                        {/* <label style={errorLabel} id="errorOfProName"></label> */}
+                        <label style={errorLabel} id="errorOfPeoFullname"></label>
                     </div>
                     </div>
                     <div className="row mb-3">
-                    <label htmlFor="inputProPrice" className="col-sm-2 col-form-label">Giá sản phẩm</label>
+                    <label htmlFor="inputPeoDateofbirth" className="col-sm-2 col-form-label">Ngày sinh</label>
                     <div className="col-sm-6">
-                        <input type="number" className="form-control" id="inputProPrice" value={this.props.pro_Price}
+                        <input type="date" className="form-control" id="inputPeoDateofbirth" value={this.peo_Dateofbirth}
                         onChange={(event) =>
-                            this.props.handleFormProPriceChange(event.target.value)
-                        }
-                        />
-                        {/* <label style={errorLabel} id="errorOfProPrice"></label> */}
+                            this.handleFormPeoDateofbirthChange(event.target.value)
+                        } />
+                        <label style={errorLabel} id="errorOfPeoDateofbirth"></label>
                     </div>
                     </div>
                     <div className="row mb-3">
-                    <label htmlFor="inputProImage" className="col-sm-2 col-form-label">Hình ảnh</label>
+                    <label htmlFor="inputPeoAddress" className="col-sm-2 col-form-label">Địa chỉ</label>
                     <div className="col-sm-6">
-                        <input type="text" className="form-control" id="inputProName" value={this.props.pro_Image}
+                        <input type="text" className="form-control" id="inputPeoAddress" value={this.peo_Address}
                         onChange={(event) =>
-                            this.props.handleFormProImageChange(event.target.value)
-                        }
-                        />
+                            this.handleFormPeoAddressChange(event.target.value)
+                        } />
+                        <label style={errorLabel} id="errorOfPeoAddress"></label>
                     </div>
                     </div>
                     <div className="row mb-3">
-                    <label htmlFor="inputProNumber" className="col-sm-2 col-form-label">Số lượng</label>
+                    <label htmlFor="inputPeoSex" className="col-sm-2 col-form-label">Giới tính</label>
                     <div className="col-sm-6">
-                        <input type="number" className="form-control" id="inputProNumber" value={this.props.pro_Number}
-                        onChange={(event) =>
-                            this.props.handleFormProNumberChange(event.target.value)
-                        }
-                        />
-                        {/* <label style={errorLabel} id="errorOfProName"></label> */}
-                    </div>
-                    </div>
-                    <div className="row mb-3">
-                    <label htmlFor="inputProDescribe" className="col-sm-2 col-form-label">Mô tả</label>
-                    <div className="col-sm-6">
-                        <textarea type="text" className="form-control" id="inputProDescribe" value={this.props.pro_Describe}
-                        onChange={(event) =>
-                            this.props.handleFormProDescribeChange(event.target.value)
-                        }
-                        />
-                        {/* <label style={errorLabel} id="errorOfProDescribe"></label> */}
-                    </div>
+                        <select className="form-control" id="inputPeoSex" value={this.peo_Sex}
+                        onChange={(event) => this.handleFormPeoSexChange(event.target.value)}>
+                            <option value={"Nam"}>Nam</option>
+                            <option value={"Nữ"}>Nữ</option>
+                        </select>
+                        <label style={errorLabel} id="errorOfPeoSex"></label>
+                        </div>
                     </div>
                     <div className="flex_right">
-                    {/* <button className="ms-btn cancel_btn"  onClick={() => this.props.openFormAccountSetting()} >Hủy</button> */}
-                    <NavLink to="/Home" className="ms-btn cancel_btn">
-                        <span>Hủy</span>
-                    </NavLink>
-                    <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateProductUpdateForm()}><i className="far fa-save icon"/>Lưu</button>
+                    <button className="ms-btn cancel_btn">
+                        <NavLink to="/Home">
+                            <span>Quay lại</span>
+                        </NavLink>
+                    </button>
+                    <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeEditForm()}><i className="far fa-save icon"/>Lưu</button>
                     </div>
                 </form>
                 </div>

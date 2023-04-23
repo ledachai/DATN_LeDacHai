@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-import AccountSetting from './AccountSetting';
 import MainPageNav from './MainPageNav';
 import { NavLink } from 'react-router-dom';
-import { Route, Routes } from "react-router-dom";
 
 class Home extends Component {
     constructor(props){
@@ -23,9 +21,6 @@ class Home extends Component {
         return(
             // <div>
             <div>
-            <Routes>
-                <Route path="/AccountSetting" element={<AccountSetting/>}></Route>
-            </Routes>
             {/* Basic */}
             <meta charSet="utf-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -76,17 +71,21 @@ class Home extends Component {
                     </button>
                     {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-                        <a className="nav-link" href="index.html">Home <span className="sr-only">(current)</span></a>
+                        <li className="nav-item">
+                            <NavLink to="/Home" className="nav-link collapsed">
+                                <span>Home</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="watches.html"> Watches </a>
+                            <NavLink to="/Watches" className="nav-link collapsed">
+                                <span>Watches</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" href="about.html"> About </a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="contact.html">Contact Us</a>
+                        <a className="nav-link" href="contact.html">Me</a>
                         </li>
                     </ul>
                     {/* </div> */}

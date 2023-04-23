@@ -40,6 +40,26 @@ namespace WatchStore.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, "e002");
             }
         }
+        [HttpGet("{Peo_ID}")]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<People>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetPeopleByID([FromRoute] Guid? Peo_ID)
+        {
+            try
+            {
+                var result = _employeeService.GetPeopleByID(Peo_ID);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+        }
         [HttpPost]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(string))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]

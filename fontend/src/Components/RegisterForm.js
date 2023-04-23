@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {Route, Routes } from "react-router";
 import { NavLink } from "react-router-dom";
-import Login from "./Login";
 import axios from "axios";
 import Swal from "sweetalert2";
 class RegisterForm extends Component{
@@ -219,71 +218,8 @@ class RegisterForm extends Component{
                       </button>
                       <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeForm()}><i className="far fa-save icon"/>Đăng Ký</button>
                     </div>
-                  </form> 
-                  {/* <form class="px-md-2">
-
-                    <div class="form-outline mb-4">
-                      <input type="text" class="form-control" id="inputPeoFullname" 
-                        onChange={(event) =>this.handleFormPeoFullnameChange(event.target.value)}/>
-                      <label htmlFor="inputPeoFullname" class="form-label">Họ tên</label>
-                    </div>
-                    <label style={errorLabel} id="errorOfPeoFullname"></label>
-                    <div class="form-outline mb-4">
-                      <input type="text" class="form-control" id="inputPeoEmail"  
-                        onChange={(event) =>this.handleFormPeoEmailChange(event.target.value)}/>
-                      <label htmlFor="inputPeoEmail" class="form-label">Email</label>
-                    </div>
-                    <label style={errorLabel} id="errorOfPeoEmail"></label>
-                    <div class="form-outline mb-4">
-                      <input type="password" class="form-control" id="inputPeoPassword" 
-                        onChange={(event) =>this.handleFormPeoPasswordChange(event.target.value)}/>
-                      <label htmlFor="inputPeoPassword" class="form-label">Password</label>
-                    </div>
-                    <label style={errorLabel} id="errorOfPeoPassword"></label>
-                    <div class="form-outline mb-4">
-                      <input type="date" class="form-control" id="inputPeoDateofbirth" 
-                        onChange={(event) =>this.handleFormPeoDateofbirthChange(event.target.value)}/>
-                      <label htmlFor="inputPeoDateofbirth" class="form-label">Ngày sinh</label>
-                    </div>
-                    <label style={errorLabel} id="errorOfPeoDateofbirth"></label>
-                    <div class="row">
-                      <div class="col-md-6 mb-4">
-
-                        <div class="form-outline datepicker">
-                          <input type="text" class="form-control" id="inputPeoAddress" 
-                            onChange={(event) =>this.handleFormPeoAddressChange(event.target.value)}/>
-                          <label htmlFor="inputPeoAddress" class="form-label">Địa chỉ</label>
-                        </div>
-                        <label style={errorLabel} id="errorOfPeoAddress"></label>
-                      </div>
-                      <div class="col-md-6 mb-4">
-
-                        <select class="select" id="inputPeoSex" onChange={(event) => this.handleFormPeoSexChange(event.target.value)}>
-                          <option value="Nam">Nam</option>
-                          <option value="Nữ">Nữ</option>
-                        </select>
-
-                      </div>
-                    </div>
-
-                    <button className="ms-btn cancel_btn">
-                      <NavLink to="/Login">
-                          <span>Đăng Nhập</span>
-                      </NavLink>
-                    </button>
-                    <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeForm()}><i className="far fa-save icon"/>Đăng Ký</button>
-
-                    </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section> */}
+                  </form>
           </div>
-            <Routes>
-              <Route path="/Login" element={<Login/>}></Route>
-            </Routes>
           </div>
         );
       }

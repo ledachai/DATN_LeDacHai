@@ -31,5 +31,9 @@ namespace WatchStore.Services
         {
             return _employeeRepository.DeleteEmployee(Peo_ID);
         }
+        public IEnumerable<People> GetPeopleByID(Guid? Peo_ID)
+        {
+            return _employeeRepository.GetPeopleByID(Peo_ID);
+        }
     }
 }

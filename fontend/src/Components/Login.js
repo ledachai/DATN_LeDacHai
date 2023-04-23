@@ -5,7 +5,8 @@ import Index from ".";
 import Admin from "./Admin";
 import Swal from "sweetalert2";
 import Home from "./Home";
-import { NavLink, Routes, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RegisterForm from "./RegisterForm";
 
 class Login extends Component{

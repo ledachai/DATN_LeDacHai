@@ -10,5 +10,6 @@ namespace WatchStore.Interface
         string? CreateEmployee(People people);
         string? UpdateEmployee(People people);
         string? DeleteEmployee(Guid? Peo_ID);
+        IEnumerable<People> GetPeopleByID(Guid? Peo_ID);
     }
 }

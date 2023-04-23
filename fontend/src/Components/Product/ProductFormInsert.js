@@ -107,7 +107,7 @@ class ProductFormInsert extends Component {
             <div className="row mb-3">
               <label htmlFor="inputProImage" className="col-sm-2 col-form-label">Hình ảnh</label>
               <div className="col-sm-6">
-                <input type="file" className="form-control" id="inputProName" value={this.props.pro_Image}
+                <input type="text" className="form-control" id="inputProName" value={this.props.pro_Image}
                   onChange={(event) =>
                     this.props.handleFormProImageChange(event.target.value)
                   }

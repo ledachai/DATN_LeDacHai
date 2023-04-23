@@ -78,6 +78,25 @@ namespace WatchStore.Repositories
             }
         }
 
+        public IEnumerable<People> GetPeopleByID(Guid? Peo_ID)
+        {
+            using (SqlServerConnection = new SqlConnection(configuration.GetConnectionString("DB")))
+            {
+                //chuẩn bị proc
+                var getPeopleByIDProc = "sp_People_GetByID";
+                //chuẩn bị param
+                DynamicParameters Parameters = new DynamicParameters();
+                Parameters.Add("@Peo_ID", Peo_ID);
+                //thực thi proc
+                var result = SqlServerConnection.QueryMultiple(getPeopleByIDProc, Parameters, commandType: System.Data.CommandType.StoredProcedure);
+                if (result != null)
+                {
+                    return result.Read<People>();
+                }
+                return null;
+            }
+        }
+
         public string UpdateEmployee(People people)
         {
             using (SqlServerConnection = new SqlConnection(configuration.GetConnectionString("DB")))

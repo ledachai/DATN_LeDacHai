@@ -4,6 +4,10 @@ import Index from './Components';
 import Login from './Components/Login';
 import Admin from './Components/Admin';
 import Home from './Components/Home';
+import { Routes, Route } from 'react-router';
+import AccountSetting from './Components/AccountSetting';
+import Watches from './Components/Watches/Watches';
+import RegisterForm from './Components/RegisterForm';
 
 
 class App extends Component {
@@ -23,7 +27,13 @@ class App extends Component {
       }
       else if(localStorage.getItem("Role") === "Khách hàng"){
         return (
-          <Home/>
+          <div>
+            <Routes>
+                <Route path='/Home' element={<Home/>}></Route>
+                <Route path="/AccountSetting" element={<AccountSetting/>}></Route>
+                <Route path="/Watches" element={<Watches/>}></Route>
+            </Routes>
+          </div>
         );
       }
       else{

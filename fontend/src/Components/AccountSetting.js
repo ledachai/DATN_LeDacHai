@@ -22,6 +22,31 @@ class AccountSetting extends Component {
             defaultUrl: "https://localhost:5001/api/Employee"
         }
     }
+    // getData(url){
+    //     let config = this.getConfigToken();
+    //     axios.get(url, config)
+    //     .then((response) => {
+    //         this.setState({
+    //             peo_Fullname: response.data,
+    //             peo_Address: response.data,
+    //             peo_Dateofbirth: response.data,
+    //             peo_Sex: response.data
+    //         })
+    //     });
+    //     console.log({
+    //         peo_ID: this.state.peo_ID,
+    //         peo_Fullname: this.state.peo_Fullname,
+    //         peo_Dateofbirth: this.state.peo_Dateofbirth,
+    //         peo_Address: this.state.peo_Address,
+    //         peo_Sex: this.state.peo_Sex
+    //     })
+    // }
+    // componentDidMount = () => {
+    //     var peo_ID = localStorage.getItem("Peo_ID");
+    //     let url = this.state.defaultUrl+"/"+peo_ID;
+    //     console.log(url)
+    //     this.getData(url);
+    // }
     handleFormPeoFullnameChange = (value) => {
         this.setState({
             peo_Fullname: value,
@@ -183,17 +208,21 @@ class AccountSetting extends Component {
                     </button>
                     {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-                        <a className="nav-link" href="index.html">Home <span className="sr-only">(current)</span></a>
+                        <li className="nav-item">
+                            <NavLink to="/Home" className="nav-link collapsed">
+                                <span>Home</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="watches.html"> Watches </a>
+                            <NavLink to="/Watches" className="nav-link collapsed">
+                                <span>Watches</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
                         <a className="nav-link" href="about.html"> About </a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="contact.html">Contact Us</a>
+                        <a className="nav-link" href="contact.html">Me</a>
                         </li>
                     </ul>
                     {/* </div> */}
@@ -221,10 +250,9 @@ class AccountSetting extends Component {
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                <i className="bi bi-gear" />
-                                <span>Account Settings</span>
-                                </a>
+                                <NavLink to="/AccountSetting" className="dropdown-item d-flex align-items-center">
+                                    <i className="bi bi-gear" /><span>Account Settings</span>
+                                </NavLink>
                             </li>
                             <li>
                                 <hr className="dropdown-divider" />
@@ -393,6 +421,9 @@ class AccountSetting extends Component {
                         </div>
                     </div>
                     <div className="flex_right">
+                    {/* <button className="ms-btn cancel_btn" onClick={()=>this.componentDidMount()}>
+                        <span>get data</span>
+                    </button> */}
                     <button className="ms-btn cancel_btn">
                         <NavLink to="/Home">
                             <span>Quay lại</span>

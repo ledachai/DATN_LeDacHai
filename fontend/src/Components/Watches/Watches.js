@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import ProductDetail from './ProductDetail';
 
 class Watches extends Component {
     constructor() {
@@ -13,8 +14,23 @@ class Watches extends Component {
             pro_Image: '',
             pro_Price: '',
             pro_Describe:'',
-            defaultUrl: "https://localhost:5001/api/V1/Product?PageIndex=1&RowPerPage=100&Search="
+            id:'',
+            defaultUrl: "https://localhost:5001/api/V1/Product?PageIndex=1&RowPerPage=500&Search="
         }
+    }
+    openProductDetail = (data) => {
+        this.setState({
+            id: localStorage.setItem("Pro_ID", data.pro_ID)
+            // id: data.pro_ID
+        })
+        // console.log({
+        //     pro_ID: this.state.pro_ID,
+        //     pro_Name: this.state.pro_Name,
+        //     pro_Image: this.state.pro_Image,
+        //     // pro_Describe: this.state.pro_Describe,
+        //     pro_Price: this.state.pro_Price,
+        //     id: localStorage.getItem("Pro_ID")
+        // })
     }
     getConfigToken() {
         let config = {
@@ -56,31 +72,31 @@ class Watches extends Component {
     renderProduct = () => {
         return this.state.Product.map((data, index) => {
             return (
-                <div className="col-sm-6 col-xl-3">
-                <div className="box">
-                <a href key={data.pro_ID}>
-                    <div className="img-box">
-                    <img src={'../img/'+data.pro_Image} alt="" />
+                <div className="col-sm-6 col-xl-3" onClick={() => this.openProductDetail(data)}>
+                    <div className="box">
+                        <NavLink to="/ProductDetail">
+                            <div className="img-box" key={data.pro_ID}>
+                            <img src={'../img/'+data.pro_Image} alt="" />
+                            </div>
+                            <div className="detail-box">
+                            <h6>
+                                {data.pro_Name}
+                            </h6>
+                            <h6>
+                                Price(đ):
+                                <span>
+                                {this.formatMoney(data.pro_Price)}
+                                </span>
+                            </h6>
+                            </div>
+                            <div className="new">
+                            <span>
+                                New
+                            </span>
+                            </div>
+                        </NavLink>
                     </div>
-                    <div className="detail-box">
-                    <h6>
-                        {data.pro_Name}
-                    </h6>
-                    <h6>
-                        Price(đ):
-                        <span>
-                        {this.formatMoney(data.pro_Price)}
-                        </span>
-                    </h6>
-                    </div>
-                    <div className="new">
-                    <span>
-                        New
-                    </span>
-                    </div>
-                </a>
                 </div>
-            </div>
             );
             // }
         }
@@ -111,6 +127,20 @@ class Watches extends Component {
             {/* responsive style */}
             <link href="css/responsive.css" rel="stylesheet" />
             <div className="hero_area">
+            <div className="hero_social">
+                <a href>
+                <i className="fa fa-facebook" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-twitter" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-linkedin" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-instagram" aria-hidden="true" />
+                </a>
+            </div>
             {/* header section strats */}
             <header className="header_section">
                 <div className="container-fluid">
@@ -144,6 +174,12 @@ class Watches extends Component {
                     </ul>
                     {/* </div> */}
                     <ul className="d-flex align-items-center">
+                        <li className="nav-item dropdown">
+                            <NavLink to="/Cart" className="nav-link nav-icon">
+                            <i className="bi bi-cart" />
+                            {/* <span className="badge bg-success badge-number">3</span> */}
+                            </NavLink>{/* End Messages Icon */}
+                        </li>
                         <li className="nav-item dropdown pe-3">
                             <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             <img src="./img/profile-img.jpg" style={{width: '30px'}} alt="Profile" className="rounded-circle" />
@@ -197,95 +233,25 @@ class Watches extends Component {
             </header>
             {/* end header section */}
             {/* slider section */}
-            <section className="slider_section ">
-                <div id="customCarousel1" className="carousel slide" data-ride="carousel">
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                    <div className="container-fluid ">
-                        <div className="row">
+             <section className="slider_section ">
+                <div className="container-fluid "> 
+                    <div className="row">
                         <div className="col-md-6">
-                            <div className="detail-box">
+                                <div className="detail-box">
                             <h1>
                                 Smart Watches
                             </h1>
                             <p>
                                 Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
                             </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="img-box">
-                            <img src="./img/slider-img.png" alt="" />
-                            {/* <img src="./img/hinh1.jpg" alt="" /> */}
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="carousel-item ">
-                    <div className="container-fluid ">
-                        <div className="row">
-                        <div className="col-md-6">
-                            <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="img-box">
-                            <img src="./img/slider-img.png" alt="" />
-                            {/* <img src="./img/hinh39.jpg" alt="" /> */}
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="carousel-item ">
-                    <div className="container-fluid ">
-                        <div className="row">
-                        <div className="col-md-6">
-                            <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
+                            </div> 
                         </div>
                         <div className="col-md-6">
                             <div className="img-box">
                             <img src="./img/slider-img.png" alt="" />
                             </div>
-                        </div>
-                        </div>
+                        </div> 
                     </div>
-                    </div>
-                </div>
-                <ol className="carousel-indicators">
-                    <li data-target="#customCarousel1" data-slide-to={0} className="active" />
-                    <li data-target="#customCarousel1" data-slide-to={1} />
-                    <li data-target="#customCarousel1" data-slide-to={2} />
-                </ol>
                 </div>
             </section>
             {/* end slider section */}
@@ -302,43 +268,11 @@ class Watches extends Component {
                     {this.renderProduct()}
                 </div>
                 <div className="btn-box">
-                <a href>
-                    View All
-                </a>
                 </div>
             </div>
             </section>
             {/* end shop section */}
             {/* about section */}
-            <section className="about_section layout_padding">
-            <div className="container  ">
-                <div className="row">
-                <div className="col-md-6 col-lg-5 ">
-                    <div className="img-box">
-                    <img src="./img/about-img.png" alt="" />
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-7">
-                    <div className="detail-box">
-                    <div className="heading_container">
-                        <h2>
-                        About Us
-                        </h2>
-                    </div>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                        in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-                        are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-                        the middle of text. All
-                    </p>
-                    <a href>
-                        Read More
-                    </a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
             {/* end about section */}
             {/* feature section */}
             <section className="feature_section layout_padding">
@@ -446,53 +380,11 @@ class Watches extends Component {
             </section>
             {/* end feature section */}
             {/* contact section */}
-            <section className="contact_section">
-            <div className="container">
-                <div className="row">
-                <div className="col-md-6">
-                    <div className="form_container">
-                    <div className="heading_container">
-                        <h2>
-                        Contact Us
-                        </h2>
-                    </div>
-                    <form action>
-                        <div>
-                        <input type="text" placeholder="Full Name " />
-                        </div>
-                        <div>
-                        <input type="email" placeholder="Email" />
-                        </div>
-                        <div>
-                        <input type="text" placeholder="Phone number" />
-                        </div>
-                        <div>
-                        <input type="text" className="message-box" placeholder="Message" />
-                        </div>
-                        <div className="d-flex ">
-                        <button>
-                            SEND
-                        </button>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="img-box">
-                    <img src="./img/contact-img.jpg" alt="" />
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
             {/* end contact section */}
             {/* client section */}
             <section className="client_section layout_padding">
             <div className="container">
                 <div className="heading_container heading_center">
-                <h2>
-                    Testimonial
-                </h2>
                 </div>
                 <div className="carousel-wrap ">
                 <div className="owl-carousel client_owl-carousel">
@@ -651,7 +543,6 @@ class Watches extends Component {
             {/* custom js */}
             {/* Google Map */}
             {/* End Google Map */}
-            
         </div>
         )
     }

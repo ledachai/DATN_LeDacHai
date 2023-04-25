@@ -18,6 +18,16 @@ namespace WatchStore.Entities
         /// Giá
         /// </summary>
         public double? Pro_Price { get; set; }
+        
+        /// <summary>
+        /// Hình ảnh
+        /// </summary>
+        public string? Pro_Image { get; set; }
+
+        /// <summary>
+        /// Hãng
+        /// </summary>
+        public string? Cate_Name { get; set; }
 
         /// <summary>
         /// mô tả sản phẩm

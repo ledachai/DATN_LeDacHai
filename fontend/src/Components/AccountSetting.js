@@ -194,6 +194,20 @@ class AccountSetting extends Component {
             {/* responsive style */}
             <link href="css/responsive.css" rel="stylesheet" />
             <div className="hero_area">
+            <div className="hero_social">
+                <a href>
+                <i className="fa fa-facebook" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-twitter" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-linkedin" aria-hidden="true" />
+                </a>
+                <a href>
+                <i className="fa fa-instagram" aria-hidden="true" />
+                </a>
+            </div>
             {/* header section strats */}
             <header className="header_section">
                 <div className="container-fluid">
@@ -227,6 +241,12 @@ class AccountSetting extends Component {
                     </ul>
                     {/* </div> */}
                     <ul className="d-flex align-items-center">
+                        <li className="nav-item dropdown">
+                            <NavLink to="/Cart" className="nav-link nav-icon">
+                            <i className="bi bi-cart" />
+                            {/* <span className="badge bg-success badge-number">3</span> */}
+                            </NavLink>{/* End Messages Icon */}
+                        </li>
                         <li className="nav-item dropdown pe-3">
                             <a className="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                             <img src="./img/profile-img.jpg" style={{width: '30px'}} alt="Profile" className="rounded-circle" />
@@ -280,192 +300,100 @@ class AccountSetting extends Component {
             </header>
             {/* end header section */}
             {/* slider section */}
-            <section className="slider_section ">
-                <div id="customCarousel1" className="carousel slide" data-ride="carousel">
-                <div className="carousel-inner">
-                    <div className="carousel-item active">
-                    <div className="container-fluid ">
-                        <div className="row">
+             <section className="slider_section ">
+                <div className="container-fluid "> 
+                    <div className="row">
                         <div className="col-md-6">
-                            <div className="detail-box">
+                                <div className="detail-box">
                             <h1>
                                 Smart Watches
                             </h1>
                             <p>
                                 Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
                             </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="img-box">
-                            <img src="./img/slider-img.png" alt="" />
-                            {/* <img src="./img/hinh1.jpg" alt="" /> */}
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="carousel-item ">
-                    <div className="container-fluid ">
-                        <div className="row">
-                        <div className="col-md-6">
-                            <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="img-box">
-                            <img src="./img/slider-img.png" alt="" />
-                            {/* <img src="./img/hinh39.jpg" alt="" /> */}
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="carousel-item ">
-                    <div className="container-fluid ">
-                        <div className="row">
-                        <div className="col-md-6">
-                            <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
-                            <div className="btn-box">
-                                <a href className="btn1">
-                                Contact Us
-                                </a>
-                            </div>
-                            </div>
+                            </div> 
                         </div>
                         <div className="col-md-6">
                             <div className="img-box">
                             <img src="./img/slider-img.png" alt="" />
                             </div>
-                        </div>
-                        </div>
+                        </div> 
                     </div>
-                    </div>
-                </div>
-                <ol className="carousel-indicators">
-                    <li data-target="#customCarousel1" data-slide-to={0} className="active" />
-                    <li data-target="#customCarousel1" data-slide-to={1} />
-                    <li data-target="#customCarousel1" data-slide-to={2} />
-                </ol>
                 </div>
             </section>
             {/* end slider section */}
             </div>
-            <div className="card">
-                <div className="card-body">
-                <h5 className="card-title">Sửa thông tin cá nhân</h5>
-                {/* Horizontal Form */}
-                <form>
-                    <div className="row mb-3">
-                    <label htmlFor="inputPeoFullname" className="col-sm-2 col-form-label">Họ tên</label>
-                    <div className="col-sm-6">
-                        <input type="text" className="form-control" id="inputPeoFullname" value={this.peo_Fullname}
-                        onChange={(event) =>
-                            this.handleFormPeoFullnameChange(event.target.value)
-                        }
-                        />
-                        <label style={errorLabel} id="errorOfPeoFullname"></label>
+            {/* shop section */}
+            <section className="shop_section layout_padding">
+            <div className="container">
+                <section className="h-100" >
+            <div className="row d-flex justify-content-center align-items-center h-100">
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        <h3 className="fw-normal mb-0 text-black">Sửa thông tin cá nhân</h3>
                     </div>
-                    </div>
-                    <div className="row mb-3">
-                    <label htmlFor="inputPeoDateofbirth" className="col-sm-2 col-form-label">Ngày sinh</label>
-                    <div className="col-sm-6">
-                        <input type="date" className="form-control" id="inputPeoDateofbirth" value={this.peo_Dateofbirth}
-                        onChange={(event) =>
-                            this.handleFormPeoDateofbirthChange(event.target.value)
-                        } />
-                        <label style={errorLabel} id="errorOfPeoDateofbirth"></label>
-                    </div>
-                    </div>
-                    <div className="row mb-3">
-                    <label htmlFor="inputPeoAddress" className="col-sm-2 col-form-label">Địa chỉ</label>
-                    <div className="col-sm-6">
-                        <input type="text" className="form-control" id="inputPeoAddress" value={this.peo_Address}
-                        onChange={(event) =>
-                            this.handleFormPeoAddressChange(event.target.value)
-                        } />
-                        <label style={errorLabel} id="errorOfPeoAddress"></label>
-                    </div>
-                    </div>
-                    <div className="row mb-3">
-                    <label htmlFor="inputPeoSex" className="col-sm-2 col-form-label">Giới tính</label>
-                    <div className="col-sm-6">
-                        <select className="form-control" id="inputPeoSex" value={this.peo_Sex}
-                        onChange={(event) => this.handleFormPeoSexChange(event.target.value)}>
-                            <option value={"Nam"}>Nam</option>
-                            <option value={"Nữ"}>Nữ</option>
-                        </select>
-                        <label style={errorLabel} id="errorOfPeoSex"></label>
+                    <div className="card mb-4">
+                        <div className="card-body p-4 d-flex flex-row">
+                        <div className="form-outline flex-fill">
+                            <div className="row mb-3">
+                                <label htmlFor="inputPeoFullname" className="col-sm-2 col-form-label">Họ tên</label>
+                                <div className="col-sm-6">
+                                    <input type="text" className="form-control" id="inputPeoFullname" value={this.peo_Fullname}
+                                    onChange={(event) =>
+                                        this.handleFormPeoFullnameChange(event.target.value)
+                                    }
+                                    />
+                                    <label style={errorLabel} id="errorOfPeoFullname"></label>
+                                </div>
+                            </div>
+                            <div className="row mb-3">
+                                <label htmlFor="inputPeoDateofbirth" className="col-sm-2 col-form-label">Ngày sinh</label>
+                                <div className="col-sm-6">
+                                    <input type="date" className="form-control" id="inputPeoDateofbirth" value={this.peo_Dateofbirth}
+                                    onChange={(event) =>
+                                        this.handleFormPeoDateofbirthChange(event.target.value)
+                                    } />
+                                    <label style={errorLabel} id="errorOfPeoDateofbirth"></label>
+                                </div>
+                            </div>
+                            <div className="row mb-3">
+                                <label htmlFor="inputPeoAddress" className="col-sm-2 col-form-label">Địa chỉ</label>
+                                <div className="col-sm-6">
+                                    <input type="text" className="form-control" id="inputPeoAddress" value={this.peo_Address}
+                                    onChange={(event) =>
+                                        this.handleFormPeoAddressChange(event.target.value)
+                                    } />
+                                    <label style={errorLabel} id="errorOfPeoAddress"></label>
+                                </div>
+                            </div>
+                            <div className="row mb-3">
+                                <label htmlFor="inputPeoSex" className="col-sm-2 col-form-label">Giới tính</label>
+                                <div className="col-sm-6">
+                                    <select className="form-control" id="inputPeoSex" value={this.peo_Sex}
+                                    onChange={(event) => this.handleFormPeoSexChange(event.target.value)}>
+                                        <option value={"Nam"}>Nam</option>
+                                        <option value={"Nữ"}>Nữ</option>
+                                    </select>
+                                    <label style={errorLabel} id="errorOfPeoSex"></label>
+                                </div>
+                            </div>
+                            <div className="flex_right">
+                                <button className="ms-btn cancel_btn">
+                                    <NavLink to="/Home">
+                                        <span>Quay lại</span>
+                                    </NavLink>
+                                </button>
+                                <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeEditForm()}><i className="far fa-save icon"/>Lưu</button>
+                            </div>
                         </div>
                     </div>
-                    <div className="flex_right">
-                    {/* <button className="ms-btn cancel_btn" onClick={()=>this.componentDidMount()}>
-                        <span>get data</span>
-                    </button> */}
-                    <button className="ms-btn cancel_btn">
-                        <NavLink to="/Home">
-                            <span>Quay lại</span>
-                        </NavLink>
-                    </button>
-                    <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeEditForm()}><i className="far fa-save icon"/>Lưu</button>
                     </div>
-                </form>
                 </div>
-            </div>
+                </section>
+                </div>
+                </section>
             {/* shop section */}
             {/* end shop section */}
             {/* about section */}
-            <section className="about_section layout_padding">
-            <div className="container  ">
-                <div className="row">
-                <div className="col-md-6 col-lg-5 ">
-                    <div className="img-box">
-                    <img src="./img/about-img.png" alt="" />
-                    </div>
-                </div>
-                <div className="col-md-6 col-lg-7">
-                    <div className="detail-box">
-                    <div className="heading_container">
-                        <h2>
-                        About Us
-                        </h2>
-                    </div>
-                    <p>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                        in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-                        are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-                        the middle of text. All
-                    </p>
-                    <a href>
-                        Read More
-                    </a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
             {/* end about section */}
             {/* feature section */}
             <section className="feature_section layout_padding">
@@ -573,53 +501,11 @@ class AccountSetting extends Component {
             </section>
             {/* end feature section */}
             {/* contact section */}
-            <section className="contact_section">
-            <div className="container">
-                <div className="row">
-                <div className="col-md-6">
-                    <div className="form_container">
-                    <div className="heading_container">
-                        <h2>
-                        Contact Us
-                        </h2>
-                    </div>
-                    <form action>
-                        <div>
-                        <input type="text" placeholder="Full Name " />
-                        </div>
-                        <div>
-                        <input type="email" placeholder="Email" />
-                        </div>
-                        <div>
-                        <input type="text" placeholder="Phone number" />
-                        </div>
-                        <div>
-                        <input type="text" className="message-box" placeholder="Message" />
-                        </div>
-                        <div className="d-flex ">
-                        <button>
-                            SEND
-                        </button>
-                        </div>
-                    </form>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="img-box">
-                    <img src="./img/contact-img.jpg" alt="" />
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
             {/* end contact section */}
             {/* client section */}
             <section className="client_section layout_padding">
             <div className="container">
                 <div className="heading_container heading_center">
-                <h2>
-                    Testimonial
-                </h2>
                 </div>
                 <div className="carousel-wrap ">
                 <div className="owl-carousel client_owl-carousel">

@@ -26,7 +26,7 @@ namespace WatchStore.Repositories
                 //chuẩn bị tham số
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Pro_ID", cart.Pro_ID);
-                parameters.Add("@Pro_Number", cart.Pro_Number);
+                //parameters.Add("@Pro_Number", cart.Pro_Number);
                 parameters.Add("@Peo_ID", cart.Peo_ID);
                 //thực thi proc
                 var result = SqlServerConnection.Query(createCartProc, parameters, commandType: System.Data.CommandType.StoredProcedure);

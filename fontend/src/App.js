@@ -8,6 +8,8 @@ import { Routes, Route } from 'react-router';
 import AccountSetting from './Components/AccountSetting';
 import Watches from './Components/Watches/Watches';
 import RegisterForm from './Components/RegisterForm';
+import ProductDetail from './Components/Watches/ProductDetail';
+import Cart from './Components/Watches/Cart';
 
 
 class App extends Component {
@@ -22,7 +24,10 @@ class App extends Component {
     if(localStorage.getItem("Token")){
       if(localStorage.getItem("Role") === "Nhân Viên"){
         return (
-          <Index/>
+          // <Index/>
+          <Routes>
+                <Route path='/Index' element={<Index/>}></Route>
+          </Routes>
         );
       }
       else if(localStorage.getItem("Role") === "Khách hàng"){
@@ -32,13 +37,18 @@ class App extends Component {
                 <Route path='/Home' element={<Home/>}></Route>
                 <Route path="/AccountSetting" element={<AccountSetting/>}></Route>
                 <Route path="/Watches" element={<Watches/>}></Route>
+                <Route path="/ProductDetail" element={<ProductDetail/>}></Route>
+                <Route path="/Cart" element={<Cart/>}></Route>
             </Routes>
           </div>
         );
       }
       else{
         return(
-        <Admin/>
+        // <Admin/>
+        <Routes>
+                <Route path='/Admin' element={<Admin/>}></Route>
+        </Routes>
         );
       }
     }
@@ -47,6 +57,9 @@ class App extends Component {
           <Login/>
       );
     }
+    // return(
+    //   <Login/>
+    // )
   }
 }
 

@@ -20,7 +20,6 @@ namespace WatchStore.Controllers
             _commentService = commentService;
         }
         [HttpGet("{Pro_ID}")]
-        //[Authorize]
         [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Comment>))]
         [SwaggerResponse(StatusCodes.Status400BadRequest)]
         [SwaggerResponse(StatusCodes.Status500InternalServerError)]
@@ -29,6 +28,26 @@ namespace WatchStore.Controllers
             try
             {
                 var result = _commentService.GetComments(Pro_ID);
+                if (result != null)
+                {
+                    return StatusCode(StatusCodes.Status200OK, result);
+                }
+                return StatusCode(StatusCodes.Status400BadRequest, "e001");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "e002");
+            }
+        }
+        [HttpGet]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(List<Comment>))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest)]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetAllComment()
+        {
+            try
+            {
+                var result = _commentService.GetAllComments();
                 if (result != null)
                 {
                     return StatusCode(StatusCodes.Status200OK, result);

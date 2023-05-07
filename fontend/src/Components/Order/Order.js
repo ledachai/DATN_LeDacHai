@@ -40,6 +40,7 @@ class Order extends Component {
         let config = this.getConfigToken();
         //let isInsertSuccess
         var url = this.state.urlforinsert + order_ID;
+        
         axios
             .post(url,{
                 order_ID: this.state.order_ID
@@ -184,6 +185,7 @@ class Order extends Component {
                       <td>{data.order_Address}</td>
                       <td>{data.order_Phone}</td>
                       <td>{data.pro_Name}</td>
+                      <td><img style={{width: '40px', height: '40px'}}  src={'../img/'+data.pro_Image} alt="" /></td>
                       <td>{data.pro_Number}</td>
                       <td>{this.formatMoney(data.cart_Pay)} đ</td>
                       <td>{this.formatDate(data.order_Date)}</td>

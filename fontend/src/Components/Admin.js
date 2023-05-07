@@ -16,7 +16,7 @@ class Admin extends Component{
           <div className="d-flex align-items-center justify-content-between">
             <a href="index.html" className="logo d-flex align-items-center">
               <img src="./img/logo.jpg" alt="" />
-              <span className="d-none d-lg-block">WatchStore</span>
+              <span className="d-none d-lg-block">Dac Hai</span>
             </a>
             <i className="bi bi-list toggle-sidebar-btn"/>
           </div>{/* End Logo */}
@@ -167,26 +167,8 @@ class Admin extends Component{
                   </li>
                   <li>
                     <a className="dropdown-item d-flex align-items-center" href="#">
-                      <i className="bi bi-person" />
-                      <span>My Profile</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item d-flex align-items-center" href="#">
                       <i className="bi bi-gear" />
                       <span>Account Settings</span>
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <a className="dropdown-item d-flex align-items-center" href="#">
-                      <i className="bi bi-question-circle" />
-                      <span>Need Help?</span>
                     </a>
                   </li>
                   <li>
@@ -232,6 +214,12 @@ class Admin extends Component{
               <NavLink to="/Orders" className="nav-link collapsed">
                 {/* <i className="bi bi-bar-chart" /><span>Quản lý đơn hàng</span> */}
                 <i className="bi bi-layout-text-window-reverse" /><span>Quản lý đơn hàng</span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/Comment" className="nav-link collapsed">
+                {/* <i className="bi bi-bar-chart" /><span>Quản lý đơn hàng</span> */}
+                <i className="bi bi-chat-left-text" /><span>Comment</span>
               </NavLink>
             </li>
             <li className="nav-item">

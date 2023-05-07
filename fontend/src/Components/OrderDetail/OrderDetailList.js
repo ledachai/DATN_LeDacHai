@@ -22,6 +22,7 @@ class OrderDetailList extends Component{
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Điện thoại</th>
                             <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Hình ảnh</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Ngày đặt</th>

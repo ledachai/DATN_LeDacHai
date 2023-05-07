@@ -7,9 +7,10 @@ import Home from './Components/Home';
 import { Routes, Route } from 'react-router';
 import AccountSetting from './Components/AccountSetting';
 import Watches from './Components/Watches/Watches';
-import RegisterForm from './Components/RegisterForm';
+// import RegisterForm from './Components/RegisterForm';
 import ProductDetail from './Components/Watches/ProductDetail';
 import Cart from './Components/Watches/Cart';
+import OrderKH from './Components/Watches/OrderKH.js';
 
 
 class App extends Component {
@@ -39,6 +40,7 @@ class App extends Component {
                 <Route path="/Watches" element={<Watches/>}></Route>
                 <Route path="/ProductDetail" element={<ProductDetail/>}></Route>
                 <Route path="/Cart" element={<Cart/>}></Route>
+                <Route path="/ListOrder" element={<OrderKH/>}></Route>
             </Routes>
           </div>
         );

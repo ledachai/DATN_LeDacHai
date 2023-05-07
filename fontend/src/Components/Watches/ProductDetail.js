@@ -20,6 +20,7 @@ class ProductDetail extends Component {
             defaultUrl: "https://localhost:5001/api/V1/Product/GetProductByID?Pro_ID=",
             urlComment: "https://localhost:5001/api/V1/Comment/",
             urlPostCart: "https://localhost:5001/api/V1/Cart",
+            urlPostComment: "https://localhost:5001/api/V1/Comment",
         }
     }
     getConfigToken() {
@@ -57,10 +58,11 @@ class ProductDetail extends Component {
     componentDidMount = () => {
         let url = this.state.defaultUrl + localStorage.getItem("Pro_ID");
         this.getData(url);
-        console.log(url)
+        // console.log(url)
         let url1 = this.state.urlComment + localStorage.getItem("Pro_ID");
         this.getComment(url1);
-        console.log(url1)
+        // console.log(url1)
+        this.clearInsertText();
     }
     postData = () => {
         let config = this.getConfigToken();
@@ -80,7 +82,7 @@ class ProductDetail extends Component {
                 }
                 else {
                     Swal.fire(
-                        'Không thể thực hiện thêm!',
+                        'Hàng trong kho đã hết!',
                         'Đã xảy ra một vấn đề nào đó',
                         'error'
                     )
@@ -88,10 +90,37 @@ class ProductDetail extends Component {
             })
             .catch(error => {
                 Swal.fire(
-                    'Không thể thực hiện thêm!',
-                    'Đã xảy ra một vấn đề nào đó',
+                    'Hàng trong kho đã hết!',
+                    'Vui lòng chọn sản phẩm khác!',
                     'error'
                 )
+            });
+    };
+    handleFormContentChange = (value) => {
+        this.setState({
+            co_Content: value,
+        });
+    };
+    clearInsertText = () => {
+        this.setState({
+            co_Content: ""
+        });
+    };
+    postComment = () => {
+        let config = this.getConfigToken();
+        axios
+            .post(this.state.urlPostComment, {
+                pro_ID: localStorage.getItem("Pro_ID"),
+                peo_ID: localStorage.getItem("Peo_ID"),
+                co_Content: this.state.co_Content
+            }, config)
+            .then(response => {
+                if (response.data) {
+                    this.componentDidMount();
+                    // this.clearInsertText();
+                }
+            })
+            .catch(error => {
             });
     };
     formatMoney = moneyinput => {
@@ -146,6 +175,9 @@ class ProductDetail extends Component {
                             <p className="details-title text-color mb-1">Mô tả</p>
                             <p className="description">{data.pro_Describe}</p>
                         </div>
+                        <div className="product-details my-4">
+                            <p className="details-title text-color mb-1">Kho: {data.pro_Number}</p>
+                        </div>
                         </div>
                     </div>
                     </div>
@@ -154,16 +186,32 @@ class ProductDetail extends Component {
         }
         );
     }
+    renderPostComment = () =>{
+        return(
+            <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                <input type="text" class="form-control mr-3" placeholder="Add comment"
+                onChange={(event) =>
+                    this.handleFormContentChange(event.target.value)
+                } />
+                <button class="btn btn-primary" type="button" onClick={() => this.postComment()}>
+                    Comment
+                </button>
+            </div>
+        );
+    }
     renderComment = () =>{
         return this.state.Comment.map((data, index) => {
             return (
                 <div>
+                    <div class="container mt-5 mb-5">
                     <div>
+                        <i class="bi bi-person"> </i>
                         {data.peo_Fullname}: {data.co_Content}
                     </div>
                     <div>
                         Thời gian: {this.formatDate(data.co_Date)}
                     </div>
+                </div>
                 </div>
             );
         }
@@ -214,7 +262,7 @@ class ProductDetail extends Component {
                 <nav className="navbar navbar-expand-lg custom_nav-container ">
                     <a className="navbar-brand" href="index.html">
                     <span>
-                        Timups
+                    Dac Hai
                     </span>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -224,19 +272,23 @@ class ProductDetail extends Component {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink to="/Home" className="nav-link collapsed">
-                                <span>Home</span>
+                                <span>Trang chủ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="/Watches" className="nav-link collapsed">
-                                <span>Watches</span>
+                                <span>Đồng hồ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="about.html"> About </a>
+                            <NavLink to="/Cart" className="nav-link collapsed">
+                                <span>Giỏ hàng</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="contact.html">Me</a>
+                            <NavLink to="/ListOrder" className="nav-link collapsed">
+                                <span>Đơn hàng</span>
+                            </NavLink>
                         </li>
                     </ul>
                     {/* </div> */}
@@ -257,7 +309,7 @@ class ProductDetail extends Component {
                                 <h6>{localStorage.getItem("FullName")}</h6>
                                 <span>{localStorage.getItem("Role")}</span>
                             </li>
-                            <li>
+                            {/* <li>
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
@@ -265,7 +317,7 @@ class ProductDetail extends Component {
                                 <i className="bi bi-person" />
                                 <span>My Profile</span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <hr className="dropdown-divider" />
                             </li>
@@ -274,7 +326,7 @@ class ProductDetail extends Component {
                                     <i className="bi bi-gear" /><span>Account Settings</span>
                                 </NavLink>
                             </li>
-                            <li>
+                            {/* <li>
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
@@ -282,7 +334,7 @@ class ProductDetail extends Component {
                                 <i className="bi bi-question-circle" />
                                 <span>Need Help?</span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <hr className="dropdown-divider" />
                             </li>
@@ -304,13 +356,13 @@ class ProductDetail extends Component {
                 <div className="container-fluid "> 
                     <div className="row">
                         <div className="col-md-6">
-                                <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
+                            <div className="detail-box">
+                                <h1>
+                                    Thời gian là vàng là bạc
+                                </h1>
+                                <p>
+                                    Đối với nhiều người, thời gian là thước đo của sự thành công, là thứ có thể cho chúng ta sự cân bằng và cho thành quả theo đúng cách chúng ta sử dụng và trân trọng nó.
+                                </p>
                             </div> 
                         </div>
                         <div className="col-md-6">
@@ -327,6 +379,7 @@ class ProductDetail extends Component {
             <section className="shop_section layout_padding">
             <div className="container">
                 {this.renderProductDetail()}
+                {this.renderPostComment()}
                 {this.renderComment()}
             </div>
             </section>
@@ -338,11 +391,8 @@ class ProductDetail extends Component {
             <div className="container">
                 <div className="heading_container">
                 <h2>
-                    Features Of Our Watches
+                    Các Tính Năng Của Đồng Hồ Thông Minh
                 </h2>
-                <p>
-                    Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
                 </div>
                 <div className="row">
                 <div className="col-sm-6 col-lg-3">
@@ -355,7 +405,7 @@ class ProductDetail extends Component {
                         Fitness Tracking
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Giúp theo dõi sức khỏe hàng ngày
                         </p>
                         <a href>
                         <span>
@@ -376,7 +426,7 @@ class ProductDetail extends Component {
                         Alerts &amp; Notifications
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Đưa ra những thông báo, cảnh báo khi cần
                         </p>
                         <a href>
                         <span>
@@ -397,7 +447,7 @@ class ProductDetail extends Component {
                         Messages
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Nhắn tin mọi lúc mọi nơi khi kết nối Internet
                         </p>
                         <a href>
                         <span>
@@ -418,7 +468,7 @@ class ProductDetail extends Component {
                         Bluetooth
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Kết nối với các thiết bị khác qua Bluetooth
                         </p>
                         <a href>
                         <span>
@@ -520,16 +570,17 @@ class ProductDetail extends Component {
                         About
                     </h4>
                     <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        Cửa hàng đồng hồ Dac Hai luôn mang đến một trải nghiệm tốt cho người tiêu dùng. 
+                        Hẹn gặp quý khách tại các chi nhánh cửa hàng trên toàn quốc.
                     </p>
-                    <div className="footer_social">
-                        <a href>
+                    <div>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-facebook" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-twitter" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-linkedin" aria-hidden="true" />
                         </a>
                         <a href>
@@ -547,19 +598,19 @@ class ProductDetail extends Component {
                         <a href>
                         <i className="fa fa-map-marker" aria-hidden="true" />
                         <span>
-                            Location
+                            Nguyên Xá, Minh Khai, Bắc Từ Liêm, Hà Nội
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-phone" aria-hidden="true" />
                         <span>
-                            Call +01 1234567890
+                            Call +84 868 728 112
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-envelope" aria-hidden="true" />
                         <span>
-                            demo@gmail.com
+                            lehai250801@gmail.com
                         </span>
                         </a>
                     </div>
@@ -588,8 +639,7 @@ class ProductDetail extends Component {
                 </div>
                 <div className="footer-info">
                 <p>
-                    © <span id="displayYear" /> All Rights Reserved By
-                    <a href="https://html.design/">Free Html Templates</a>
+                    © <span id="displayYear" /> Dac Hai Watch
                 </p>
                 </div>
             </div>

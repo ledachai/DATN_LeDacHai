@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import $, {data, get} from "jquery";
 class Cart extends Component {
     constructor() {
         super();
@@ -14,9 +15,12 @@ class Cart extends Component {
             cart_Pay: '',
             pro_Describe:'',
             cate_Name:'',
+            order_Fullname:'',
+            order_Address:'',
+            order_Phone:'',
             defaultUrl: "https://localhost:5001/api/V1/Cart?Peo_ID=",
             urlDelete: "https://localhost:5001/api/V1/Cart/",
-            // urlPostCart: "https://localhost:5001/api/V1/Cart",
+            urlPostOrder: "https://localhost:5001/api/V1/Order",
         }
     }
     getConfigToken() {
@@ -40,12 +44,6 @@ class Cart extends Component {
     componentDidMount = () => {
         let url = this.state.defaultUrl + localStorage.getItem("Peo_ID");
         this.getData(url);
-        console.log(url)
-        console.log({
-            pro_Image: this.state.pro_Image,
-            cate_Name: this.state.cate_Name,
-            cart_Pay: this.state.cart_Pay
-        })
     }
     // HTTP DELETE
     deleteCart = (cart_ID) => {
@@ -102,38 +100,40 @@ class Cart extends Component {
             } 
         })
     }
-    // postData = () => {
-    //     let config = this.getConfigToken();
-    //     axios
-    //         .post(this.state.urlPostCart, {
-    //             pro_ID: localStorage.getItem("Pro_ID"),
-    //             peo_ID: localStorage.getItem("Peo_ID")
-    //         }, config)
-    //         .then(response => {
-    //             if (response.data) {
-    //                 Swal.fire(
-    //                     'Đã thêm vào giỏ hàng!',
-    //                     'Thay đổi đã xảy ra',
-    //                     'success'
-    //                 )
-    //                 this.componentDidMount();
-    //             }
-    //             else {
-    //                 Swal.fire(
-    //                     'Không thể thực hiện thêm!',
-    //                     'Đã xảy ra một vấn đề nào đó',
-    //                     'error'
-    //                 )
-    //             }
-    //         })
-    //         .catch(error => {
-    //             Swal.fire(
-    //                 'Không thể thực hiện thêm!',
-    //                 'Đã xảy ra một vấn đề nào đó',
-    //                 'error'
-    //             )
-    //         });
-    // };
+    postData = (data) => {
+        let config = this.getConfigToken();
+        axios
+            .post(this.state.urlPostOrder, {
+                order_Fullname: this.state.order_Fullname,
+                order_Address: this.state.order_Address,
+                order_Phone: this.state.order_Phone,
+                cart_ID: data.cart_ID
+            }, config)
+            .then(response => {
+                if (response.data) {
+                    Swal.fire(
+                        'Đã đặt hàng!',
+                        'Thay đổi đã xảy ra',
+                        'success'
+                    )
+                    this.componentDidMount();
+                }
+                else {
+                    Swal.fire(
+                        'Không thể thực hiện thêm!',
+                        'Đã xảy ra một vấn đề nào đó',
+                        'error'
+                    )
+                }
+            })
+            .catch(error => {
+                Swal.fire(
+                    'Không thể thực hiện thêm!',
+                    'Đã xảy ra một vấn đề nào đó',
+                    'error'
+                )
+            });
+    };
     formatMoney = moneyinput => {
         let money = Math.round(moneyinput);
         if(money && !isNaN(money)){
@@ -176,7 +176,12 @@ class Cart extends Component {
                         <h5 className="mb-0">{this.formatMoney(data.cart_Pay)}</h5>
                         </div>
                         <div className="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a className="text-danger" onClick={() => this.showDeleteConfirmAlert(data)}><i className="fas fa-trash fa-lg" /></a>
+                            <div className="flex-center">
+                                <button type="button" class="btn btn-danger btn-sm"  onClick={() => this.showDeleteConfirmAlert(data)}><i className="fas fa-trash fa-lg" /></button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-outline-success btn-sm"  onClick={() => this.validateOrderForm(data)}><i className="fas fa-check fa-lg" /></button>
+                            </div>
                         </div>
                     </div>
                     </div>
@@ -186,7 +191,73 @@ class Cart extends Component {
         }
         );
     }
+    handleFormOrderFullnameChange = (value) => {
+        this.setState({
+            order_Fullname: value,
+        });
+    };
+    handleFormOrderAddressChange = (value) => {
+        this.setState({
+            order_Address: value,
+        });
+    };
+    handleFormOrderPhoneChange = (value) => {
+        this.setState({
+            order_Phone: value,
+        });
+    };
+    validateOrderForm = (data) => {
+        // validate text
+        let errorOfOrderFullname = "";
+        let order_Fullname = document.getElementById("inputOrderFullname").value;
+        if (order_Fullname === "") {
+            errorOfOrderFullname = errorOfOrderFullname + "Họ tên không được bỏ trống!\n";
+        }
+        var format = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+        if (format.test(order_Fullname)) {
+            errorOfOrderFullname += "Họ tên không được chứa ký tự đặc biệt";
+        }
+        let errorOfOrderAddress ="";
+        let order_Address = document.getElementById("inputOrderAddress").value;
+        if(order_Address===""){
+            errorOfOrderAddress = errorOfOrderAddress + "Địa chỉ không được bỏ trống!\n";
+        }
+        // Thêm validate SĐT
+        let errorOfOrderPhone = "";
+        var numbersOnly = /^[0-9]+$/;
+        let order_Phone = document.getElementById("inputOrderPhone").value;
+        var firstPhoneNumber = /((09|03|07|08|05)+[0-9]\b)/g;
+        if (order_Phone === "") {
+            errorOfOrderPhone = errorOfOrderPhone + "Số điện thoại không được bỏ trống!\n";
+        }
+        if (!numbersOnly.test(order_Phone)) {
+            errorOfOrderPhone += 'Số điện thoại chỉ chứa số!';
+        }
+        // if (firstPhoneNumber.test(order_Phone)) {
+        //     errorOfOrderPhone += 'Số điện thoại không hợp lệ!';
+        // }
+        if (order_Phone.length > 11 || order_Phone.length < 10) {
+            errorOfOrderPhone = "Số điện thoại không vượt quá 11 số và nhỏ hơn 10 số!\n";
+        }
+        if (errorOfOrderFullname || errorOfOrderAddress || errorOfOrderPhone) {
+          Swal.fire(
+            'Cảnh báo\n\n Dữ liệu không hợp lệ',
+            '',
+            'error'
+          )
+          document.getElementById("errorOfOrderFullname").innerHTML = typeof errorOfOrderFullname === "undefined" ? "" : errorOfOrderFullname;
+          document.getElementById("errorOfOrderAddress").innerHTML = typeof errorOfOrderAddress === "undefined" ? "" : errorOfOrderAddress;
+          document.getElementById("errorOfOrderPhone").innerHTML = typeof errorOfOrderPhone === "undefined" ? "" : errorOfOrderPhone;
+        }
+        else {
+          this.postData(data);
+        }
+    };
     render() {
+        const errorLabel = {
+            color: "red",
+            padding: "10px",
+        }
         return(
             <div>
             {/* Basic */}
@@ -231,7 +302,7 @@ class Cart extends Component {
                 <nav className="navbar navbar-expand-lg custom_nav-container ">
                     <a className="navbar-brand" href="index.html">
                     <span>
-                        Timups
+                        Dac Hai
                     </span>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -241,19 +312,23 @@ class Cart extends Component {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink to="/Home" className="nav-link collapsed">
-                                <span>Home</span>
+                                <span>Trang chủ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="/Watches" className="nav-link collapsed">
-                                <span>Watches</span>
+                                <span>Đồng hồ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="about.html"> About </a>
+                            <NavLink to="/Cart" className="nav-link collapsed">
+                                <span>Giỏ hàng</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="contact.html">Me</a>
+                            <NavLink to="/ListOrder" className="nav-link collapsed">
+                                <span>Đơn hàng</span>
+                            </NavLink>
                         </li>
                     </ul>
                     {/* </div> */}
@@ -274,7 +349,7 @@ class Cart extends Component {
                                 <h6>{localStorage.getItem("FullName")}</h6>
                                 <span>{localStorage.getItem("Role")}</span>
                             </li>
-                            <li>
+                            {/* <li>
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
@@ -282,7 +357,7 @@ class Cart extends Component {
                                 <i className="bi bi-person" />
                                 <span>My Profile</span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <hr className="dropdown-divider" />
                             </li>
@@ -291,7 +366,7 @@ class Cart extends Component {
                                     <i className="bi bi-gear" /><span>Account Settings</span>
                                 </NavLink>
                             </li>
-                            <li>
+                            {/* <li>
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
@@ -299,7 +374,7 @@ class Cart extends Component {
                                 <i className="bi bi-question-circle" />
                                 <span>Need Help?</span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li>
                                 <hr className="dropdown-divider" />
                             </li>
@@ -321,13 +396,13 @@ class Cart extends Component {
                 <div className="container-fluid "> 
                     <div className="row">
                         <div className="col-md-6">
-                                <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
+                            <div className="detail-box">
+                                <h1>
+                                    Thời gian là vàng là bạc
+                                </h1>
+                                <p>
+                                    Đối với nhiều người, thời gian là thước đo của sự thành công, là thứ có thể cho chúng ta sự cân bằng và cho thành quả theo đúng cách chúng ta sử dụng và trân trọng nó.
+                                </p>
                             </div> 
                         </div>
                         <div className="col-md-6">
@@ -355,119 +430,72 @@ class Cart extends Component {
                         </div>  
                     </section>
                 </div>
-            </section>
+            {/* </section> */}
             {/* end shop section */}
             {/* about section */}
             {/* end about section */}
             {/* feature section */}
-            <section className="feature_section layout_padding">
-            <div className="container">
-                <div className="heading_container">
-                <h2>
-                    Features Of Our Watches
-                </h2>
-                <p>
-                    Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
+            {/* <section className="feature_section layout_padding"> */}
+                <div className="container">
+                    <section className="h-100" >
+                        <div className="row d-flex justify-content-center align-items-center h-100">
+                            <div className="d-flex justify-content-between align-items-center mb-4">
+                                <h3 className="fw-normal mb-0 text-black">Nhập thông tin nhận hàng</h3>
+                            </div>
+                            <div className="card mb-4">
+                                <div className="card-body p-4 d-flex flex-row">
+                                <div className="form-outline flex-fill">
+                                    <div className="row mb-3">
+                                        <label htmlFor="inputOrderFullname" className="col-sm-2 col-form-label">Họ tên người nhận</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control" id="inputOrderFullname"
+                                            onChange={(event) =>
+                                                this.handleFormOrderFullnameChange(event.target.value)
+                                            }
+                                            />
+                                            <label style={errorLabel} id="errorOfOrderFullname"></label>
+                                        </div>
+                                    </div>
+                                    <div className="row mb-3">
+                                        <label htmlFor="inputOrderAddress" className="col-sm-2 col-form-label">Địa chỉ</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control" id="inputOrderAddress"
+                                            onChange={(event) =>
+                                                this.handleFormOrderAddressChange(event.target.value)
+                                            } />
+                                            <label style={errorLabel} id="errorOfOrderAddress"></label>
+                                        </div>
+                                    </div>
+                                    <div className="row mb-3">
+                                        <label htmlFor="inputOrderPhone" className="col-sm-2 col-form-label">Số điện thoại</label>
+                                        <div className="col-sm-6">
+                                            <input type="text" className="form-control" id="inputOrderPhone"
+                                            onChange={(event) =>
+                                                this.handleFormOrderPhoneChange(event.target.value)
+                                            } />
+                                            <label style={errorLabel} id="errorOfOrderPhone"></label>
+                                        </div>
+                                    </div>
+                                    {/* <div className="flex_right">
+                                        <button className="ms-btn cancel_btn">
+                                            <NavLink to="/Home">
+                                                <span>Quay lại</span>
+                                            </NavLink>
+                                        </button>
+                                        <button type="button" className="ms-btn ms-btn_icon" onClick={() => this.validateEmployeeEditForm()}><i className="far fa-save icon"/>Lưu</button>
+                                    </div> */}
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
-                <div className="row">
-                <div className="col-sm-6 col-lg-3">
-                    <div className="box">
-                    <div className="img-box">
-                        <img src="./img/f1.png" alt="" />
-                    </div>
-                    <div className="detail-box">
-                        <h5>
-                        Fitness Tracking
-                        </h5>
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        </p>
-                        <a href>
-                        <span>
-                            Read More
-                        </span>
-                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
-                        </a>
-                    </div>
-                    </div>
-                </div>
-                <div className="col-sm-6 col-lg-3">
-                    <div className="box">
-                    <div className="img-box">
-                        <img src="./img/f2.png" alt="" />
-                    </div>
-                    <div className="detail-box">
-                        <h5>
-                        Alerts &amp; Notifications
-                        </h5>
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        </p>
-                        <a href>
-                        <span>
-                            Read More
-                        </span>
-                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
-                        </a>
-                    </div>
-                    </div>
-                </div>
-                <div className="col-sm-6 col-lg-3">
-                    <div className="box">
-                    <div className="img-box">
-                        <img src="./img/f3.png" alt="" />
-                    </div>
-                    <div className="detail-box">
-                        <h5>
-                        Messages
-                        </h5>
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        </p>
-                        <a href>
-                        <span>
-                            Read More
-                        </span>
-                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
-                        </a>
-                    </div>
-                    </div>
-                </div>
-                <div className="col-sm-6 col-lg-3">
-                    <div className="box">
-                    <div className="img-box">
-                        <img src="./img/f4.png" alt="" />
-                    </div>
-                    <div className="detail-box">
-                        <h5>
-                        Bluetooth
-                        </h5>
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        </p>
-                        <a href>
-                        <span>
-                            Read More
-                        </span>
-                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
-                        </a>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <div className="btn-box">
-                <a href>
-                    View More
-                </a>
-                </div>
-            </div>
-            </section>
+            {/* </section> */}
             {/* end feature section */}
             {/* contact section */}
             {/* end contact section */}
             {/* client section */}
-            <section className="client_section layout_padding">
+            {/* <section className="client_section layout_padding"> */}
             <div className="container">
                 <div className="heading_container heading_center">
                 </div>
@@ -536,6 +564,106 @@ class Cart extends Component {
             </div>
             </section>
             {/* end client section */}
+            <section className="feature_section layout_padding">
+            <div className="container">
+            <div className="heading_container">
+                <h2>
+                    Các Tính Năng Của Đồng Hồ Thông Minh
+                </h2>
+                </div>
+                <div className="row">
+                <div className="col-sm-6 col-lg-3">
+                    <div className="box">
+                    <div className="img-box">
+                        <img src="./img/f1.png" alt="" />
+                    </div>
+                    <div className="detail-box">
+                        <h5>
+                        Fitness Tracking
+                        </h5>
+                        <p>
+                        Giúp theo dõi sức khỏe hàng ngày
+                        </p>
+                        <a href>
+                        <span>
+                            Read More
+                        </span>
+                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div className="col-sm-6 col-lg-3">
+                    <div className="box">
+                    <div className="img-box">
+                        <img src="./img/f2.png" alt="" />
+                    </div>
+                    <div className="detail-box">
+                        <h5>
+                        Alerts &amp; Notifications
+                        </h5>
+                        <p>
+                        Đưa ra những thông báo, cảnh báo khi cần
+                        </p>
+                        <a href>
+                        <span>
+                            Read More
+                        </span>
+                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div className="col-sm-6 col-lg-3">
+                    <div className="box">
+                    <div className="img-box">
+                        <img src="./img/f3.png" alt="" />
+                    </div>
+                    <div className="detail-box">
+                        <h5>
+                        Messages
+                        </h5>
+                        <p>
+                        Nhắn tin mọi lúc mọi nơi khi kết nối Internet
+                        </p>
+                        <a href>
+                        <span>
+                            Read More
+                        </span>
+                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                <div className="col-sm-6 col-lg-3">
+                    <div className="box">
+                    <div className="img-box">
+                        <img src="./img/f4.png" alt="" />
+                    </div>
+                    <div className="detail-box">
+                        <h5>
+                        Bluetooth
+                        </h5>
+                        <p>
+                        Kết nối với các thiết bị khác qua Bluetooth
+                        </p>
+                        <a href>
+                        <span>
+                            Read More
+                        </span>
+                        <i className="fa fa-long-arrow-right" aria-hidden="true" />
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div className="btn-box">
+                <a href>
+                    View More
+                </a>
+                </div>
+            </div>
+            </section>
             {/* footer section */}
             <footer className="footer_section">
             <div className="container">
@@ -546,16 +674,17 @@ class Cart extends Component {
                         About
                     </h4>
                     <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        Cửa hàng đồng hồ Dac Hai luôn mang đến một trải nghiệm tốt cho người tiêu dùng. 
+                        Hẹn gặp quý khách tại các chi nhánh cửa hàng trên toàn quốc.
                     </p>
-                    <div className="footer_social">
-                        <a href>
+                    <div>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-facebook" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-twitter" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-linkedin" aria-hidden="true" />
                         </a>
                         <a href>
@@ -573,19 +702,19 @@ class Cart extends Component {
                         <a href>
                         <i className="fa fa-map-marker" aria-hidden="true" />
                         <span>
-                            Location
+                            Nguyên Xá, Minh Khai, Bắc Từ Liêm, Hà Nội
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-phone" aria-hidden="true" />
                         <span>
-                            Call +01 1234567890
+                            Call +84 868 728 112
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-envelope" aria-hidden="true" />
                         <span>
-                            demo@gmail.com
+                            lehai250801@gmail.com
                         </span>
                         </a>
                     </div>
@@ -614,8 +743,7 @@ class Cart extends Component {
                 </div>
                 <div className="footer-info">
                 <p>
-                    © <span id="displayYear" /> All Rights Reserved By
-                    <a href="https://html.design/">Free Html Templates</a>
+                    © <span id="displayYear" /> Dac Hai Watch
                 </p>
                 </div>
             </div>

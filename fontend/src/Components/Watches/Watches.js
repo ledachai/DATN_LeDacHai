@@ -15,7 +15,7 @@ class Watches extends Component {
             pro_Price: '',
             pro_Describe:'',
             id:'',
-            defaultUrl: "https://localhost:5001/api/V1/Product?PageIndex=1&RowPerPage=500&Search="
+            defaultUrl: "https://localhost:5001/api/V1/Product?PageIndex=1&RowPerPage=500"
         }
     }
     openProductDetail = (data) => {
@@ -68,6 +68,11 @@ class Watches extends Component {
       }
     componentDidMount = (url = this.state.defaultUrl) => {
         this.getData(url);
+    }
+    handleSearch(search){
+        let url = "https://localhost:5001/api/V1/Product?PageIndex=1&RowPerPage=50" + search;
+        console.log(url)
+        this.componentDidMount(url);
     }
     renderProduct = () => {
         return this.state.Product.map((data, index) => {
@@ -147,7 +152,7 @@ class Watches extends Component {
                 <nav className="navbar navbar-expand-lg custom_nav-container ">
                     <a className="navbar-brand" href="index.html">
                     <span>
-                        Timups
+                    Dac Hai
                     </span>
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,19 +162,23 @@ class Watches extends Component {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink to="/Home" className="nav-link collapsed">
-                                <span>Home</span>
+                                <span>Trang chủ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="/Watches" className="nav-link collapsed">
-                                <span>Watches</span>
+                                <span>Đồng hồ</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="about.html"> About </a>
+                            <NavLink to="/Cart" className="nav-link collapsed">
+                                <span>Giỏ hàng</span>
+                            </NavLink>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link" href="contact.html">Me</a>
+                            <NavLink to="/ListOrder" className="nav-link collapsed">
+                                <span>Đơn hàng</span>
+                            </NavLink>
                         </li>
                     </ul>
                     {/* </div> */}
@@ -194,27 +203,9 @@ class Watches extends Component {
                                 <hr className="dropdown-divider" />
                             </li>
                             <li>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                <i className="bi bi-person" />
-                                <span>My Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr className="dropdown-divider" />
-                            </li>
-                            <li>
                                 <NavLink to="/AccountSetting" className="dropdown-item d-flex align-items-center">
                                     <i className="bi bi-gear" /><span>Account Settings</span>
                                 </NavLink>
-                            </li>
-                            <li>
-                                <hr className="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a className="dropdown-item d-flex align-items-center" href="#">
-                                <i className="bi bi-question-circle" />
-                                <span>Need Help?</span>
-                                </a>
                             </li>
                             <li>
                                 <hr className="dropdown-divider" />
@@ -237,13 +228,13 @@ class Watches extends Component {
                 <div className="container-fluid "> 
                     <div className="row">
                         <div className="col-md-6">
-                                <div className="detail-box">
-                            <h1>
-                                Smart Watches
-                            </h1>
-                            <p>
-                                Aenean scelerisque felis ut orci condimentum laoreet. Integer nisi nisl, convallis et augue sit amet, lobortis semper quam.
-                            </p>
+                            <div className="detail-box">
+                                <h1>
+                                    Thời gian là vàng là bạc
+                                </h1>
+                                <p>
+                                    Đối với nhiều người, thời gian là thước đo của sự thành công, là thứ có thể cho chúng ta sự cân bằng và cho thành quả theo đúng cách chúng ta sử dụng và trân trọng nó.
+                                </p>
                             </div> 
                         </div>
                         <div className="col-md-6">
@@ -259,11 +250,23 @@ class Watches extends Component {
             {/* shop section */}
             <section className="shop_section layout_padding">
             <div className="container">
-                <div className="heading_container heading_center">
+                {/* <div className="heading_container heading_center">
                 <h2>
                     Latest Watches
-                </h2>
-                </div>
+                </h2> */}
+                <select style={{width: '110px'}} className="form-select" aria-label="Default select example" 
+                    onChange={(e) => {this.handleSearch("&search=" + e.target.value)}}
+                    >
+                    <option value={""} selected>Tất cả</option>
+                    <option value={"Seiko"}>Seiko</option>
+                    <option value={"Orient"}>Orient</option>
+                    <option value={"Tissot"}>Tissot</option>
+                    <option value={"Citizen"}>Citizen</option>
+                    <option value={"Hublot"}>Hublot</option>
+                    <option value={"Casio"}>Casio</option>
+                    <option value={"Rolex"}>Rolex</option>
+                </select>
+                {/* </div> */}
                 <div className="row">
                     {this.renderProduct()}
                 </div>
@@ -277,13 +280,10 @@ class Watches extends Component {
             {/* feature section */}
             <section className="feature_section layout_padding">
             <div className="container">
-                <div className="heading_container">
+            <div className="heading_container">
                 <h2>
-                    Features Of Our Watches
+                    Các Tính Năng Của Đồng Hồ Thông Minh
                 </h2>
-                <p>
-                    Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
                 </div>
                 <div className="row">
                 <div className="col-sm-6 col-lg-3">
@@ -296,7 +296,7 @@ class Watches extends Component {
                         Fitness Tracking
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Giúp theo dõi sức khỏe hàng ngày
                         </p>
                         <a href>
                         <span>
@@ -317,7 +317,7 @@ class Watches extends Component {
                         Alerts &amp; Notifications
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Đưa ra những thông báo, cảnh báo khi cần
                         </p>
                         <a href>
                         <span>
@@ -338,7 +338,7 @@ class Watches extends Component {
                         Messages
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Nhắn tin mọi lúc mọi nơi khi kết nối Internet
                         </p>
                         <a href>
                         <span>
@@ -359,7 +359,7 @@ class Watches extends Component {
                         Bluetooth
                         </h5>
                         <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        Kết nối với các thiết bị khác qua Bluetooth
                         </p>
                         <a href>
                         <span>
@@ -382,74 +382,6 @@ class Watches extends Component {
             {/* contact section */}
             {/* end contact section */}
             {/* client section */}
-            <section className="client_section layout_padding">
-            <div className="container">
-                <div className="heading_container heading_center">
-                </div>
-                <div className="carousel-wrap ">
-                <div className="owl-carousel client_owl-carousel">
-                    <div className="item">
-                    <div className="box">
-                        <div className="img-box">
-                        <img src="./img/c1.jpg" alt="" />
-                        </div>
-                        <div className="detail-box">
-                        <div className="client_info">
-                            <div className="client_name">
-                            <h5>
-                                Mark Thomas
-                            </h5>
-                            <h6>
-                                Customer
-                            </h6>
-                            </div>
-                            <i className="fa fa-quote-left" aria-hidden="true" />
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore
-                            et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum
-                            dolore eu fugia
-                        </p>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="item">
-                    <div className="box">
-                        <div className="img-box">
-                        <img src="./img/c2.jpg" alt="" />
-                        </div>
-                        <div className="detail-box">
-                        <div className="client_info">
-                            <div className="client_name">
-                            <h5>
-                                Alina Hans
-                            </h5>
-                            <h6>
-                                Customer
-                            </h6>
-                            </div>
-                            <i className="fa fa-quote-left" aria-hidden="true" />
-                        </div>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore
-                            et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum
-                            dolore eu fugia
-                        </p>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </section>
             {/* end client section */}
             {/* footer section */}
             <footer className="footer_section">
@@ -461,16 +393,17 @@ class Watches extends Component {
                         About
                     </h4>
                     <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                        Cửa hàng đồng hồ Dac Hai luôn mang đến một trải nghiệm tốt cho người tiêu dùng. 
+                        Hẹn gặp quý khách tại các chi nhánh cửa hàng trên toàn quốc.
                     </p>
-                    <div className="footer_social">
-                        <a href>
+                    <div>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-facebook" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-twitter" aria-hidden="true" />
                         </a>
-                        <a href>
+                        <a href style={{paddingRight:'30px'}}>
                         <i className="fa fa-linkedin" aria-hidden="true" />
                         </a>
                         <a href>
@@ -485,22 +418,22 @@ class Watches extends Component {
                         Reach at..
                     </h4>
                     <div className="contact_link_box">
-                        <a href>
+                    <a href>
                         <i className="fa fa-map-marker" aria-hidden="true" />
                         <span>
-                            Location
+                            Nguyên Xá, Minh Khai, Bắc Từ Liêm, Hà Nội
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-phone" aria-hidden="true" />
                         <span>
-                            Call +01 1234567890
+                            Call +84 868 728 112
                         </span>
                         </a>
                         <a href>
                         <i className="fa fa-envelope" aria-hidden="true" />
                         <span>
-                            demo@gmail.com
+                            lehai250801@gmail.com
                         </span>
                         </a>
                     </div>
@@ -529,8 +462,7 @@ class Watches extends Component {
                 </div>
                 <div className="footer-info">
                 <p>
-                    © <span id="displayYear" /> All Rights Reserved By
-                    <a href="https://html.design/">Free Html Templates</a>
+                    © <span id="displayYear" /> Dac Hai Watch
                 </p>
                 </div>
             </div>

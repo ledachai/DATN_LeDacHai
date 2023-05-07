@@ -19,5 +19,10 @@ namespace WatchStore.Services
         {
             return _repository.CreateComments(comment);
         }
+
+        public IEnumerable<Comment> GetAllComments()
+        {
+            return _repository.GetAllComments();
+        }
     }
 }

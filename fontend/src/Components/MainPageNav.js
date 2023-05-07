@@ -12,6 +12,7 @@ import RegisterForm from "./RegisterForm";
 import AccountSetting from "./AccountSetting";
 import Login from "./Login";
 import Watches from "./Watches/Watches";
+import Comment from "./Comment/Comment";
 
 class MainPageNav extends Component{
     render(){
@@ -24,6 +25,7 @@ class MainPageNav extends Component{
             <Route path="/Reports" element={<OrderDetail/>}></Route>
             <Route path="/Customers" element={<Customer/>}></Route>
             <Route path="/Employees" element={<Employee/>}></Route>
+            <Route path="/Comment" element={<Comment/>}></Route>
             <Route path="/Admins" element={<Admin1/>}></Route>
             <Route path="/Guess" element={<Guess/>}></Route>
             <Route path="/Login" element={<Login/>}></Route>

@@ -54,5 +54,21 @@ namespace WatchStore.Repositories
                 return null;
             }
         }
+
+        public IEnumerable<Comment> GetAllComments()
+        {
+            using (SqlServerConnection = new SqlConnection(configuration.GetConnectionString("DB")))
+            {
+                //chuẩn bị proc
+                var getAllCommentProc = "sp_Comment_GetAll";
+                //thực thi proc
+                var result = SqlServerConnection.QueryMultiple(getAllCommentProc, commandType: System.Data.CommandType.StoredProcedure);
+                if (result != null)
+                {
+                    return result.Read<Comment>();
+                }
+                return null;
+            }
+        }
     }
 }

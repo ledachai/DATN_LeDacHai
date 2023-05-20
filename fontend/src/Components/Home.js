@@ -114,7 +114,7 @@ class Home extends Component {
                             </li>
                             <li>
                                 <NavLink to="/AccountSetting" className="dropdown-item d-flex align-items-center">
-                                    <i className="bi bi-gear" /><span>Account Settings</span>
+                                    <i className="bi bi-gear" /><span>Sửa thông tin cá nhân?</span>
                                 </NavLink>
                             </li>
                             <li>
@@ -123,7 +123,7 @@ class Home extends Component {
                             <li>
                                 <a className="dropdown-item d-flex align-items-center" href="../Login.js" onClick={() => localStorage.removeItem("Token")}>
                                 <i className="bi bi-box-arrow-right" />
-                                <span>Sign Out</span>
+                                <span>Đăng xuất?</span>
                                 </a>
                             </li>
                             </ul>{/* End Profile Dropdown Items */}
@@ -162,7 +162,7 @@ class Home extends Component {
             <div className="container">
                 <div className="heading_container heading_center">
                 <h2>
-                    Latest Watches
+                    Đồng hồ thông minh
                 </h2>
                 </div>
                 <div className="row">
@@ -342,11 +342,11 @@ class Home extends Component {
                     </div>
                 </div>
                 </div>
-                <div className="btn-box">
+                {/* <div className="btn-box">
                 <a href>
                     View All
                 </a>
-                </div>
+                </div> */}
             </div>
             </section>
             {/* end shop section */}
@@ -363,17 +363,16 @@ class Home extends Component {
                     <div className="detail-box">
                     <div className="heading_container">
                         <h2>
-                        About Us
+                        Về chúng tôi
                         </h2>
                     </div>
                     <p>
-                        There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-                        in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-                        are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-                        the middle of text. All
+                        Cửa hàng đồng hồ Đắc Hải với phương châm Uy tín tạo thương hiệu. Khách hàng đến với cửa hàng sẽ có được trải nghiệm rất tốt.
+                        Các sản phẩm với giá tiền rât phù hợp cho mọi lứa tuổi, mọi tầng lớp khách hàng. Bên cạnh đó, khách hàng sẽ có được sự phục vụ rất 
+                        nhiệt tình từ các nhân viên của cửa hàng. Cửa hàng Đắc Hải luôn mang cho khách hàng sự hài lòng.
                     </p>
                     <a href>
-                        Read More
+                        Trải nghiệm
                     </a>
                     </div>
                 </div>

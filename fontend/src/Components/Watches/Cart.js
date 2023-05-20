@@ -363,7 +363,7 @@ class Cart extends Component {
                             </li>
                             <li>
                                 <NavLink to="/AccountSetting" className="dropdown-item d-flex align-items-center">
-                                    <i className="bi bi-gear" /><span>Account Settings</span>
+                                    <i className="bi bi-gear" /><span>Sửa thông tin cá nhân?</span>
                                 </NavLink>
                             </li>
                             {/* <li>
@@ -381,7 +381,7 @@ class Cart extends Component {
                             <li>
                                 <a className="dropdown-item d-flex align-items-center" href="../Login.js" onClick={() => localStorage.removeItem("Token")}>
                                 <i className="bi bi-box-arrow-right" />
-                                <span>Sign Out</span>
+                                <span>Đăng xuất?</span>
                                 </a>
                             </li>
                             </ul>{/* End Profile Dropdown Items */}

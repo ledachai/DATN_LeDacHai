@@ -173,7 +173,7 @@ class Index extends Component{
                     <h6>{localStorage.getItem("FullName")}</h6>
                     <span>{localStorage.getItem("Role")}</span>
                   </li>
-                  <li>
+                  {/* <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
@@ -181,14 +181,14 @@ class Index extends Component{
                       <i className="bi bi-gear" />
                       <span>Account Settings</span>
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
                     <a className="dropdown-item d-flex align-items-center" href="../Login.js" onClick={() => localStorage.removeItem("Token")}>
                       <i className="bi bi-box-arrow-right" />
-                      <span>Sign Out</span>
+                      <span>Đăng xuất?</span>
                     </a>
                   </li>
                 </ul>{/* End Profile Dropdown Items */}
